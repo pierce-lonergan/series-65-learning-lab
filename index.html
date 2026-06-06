@@ -4692,6 +4692,216 @@ enh({
   trap:"'Principal-protected' still carries issuer credit risk. Reverse convertibles can repay you in <i>falling</i> stock, not cash." }
 });
 </script>
+<script>
+/* ====================  WAVE 6: EQUITY + POOLED (conceptual)  ==================== */
+enh({
+"common-stock":{
+  examples:[{ title:"Last in line, unlimited upside", scenario:"A company is doing great, then later goes bankrupt. Where does a common shareholder stand each time?",
+    result:"In good times you share unlimited upside and vote; in bankruptcy you're the <b>residual</b> claimant — paid last, after every creditor and preferred holder." }],
+  memory:"Ownership: voting + residual claim, but paid LAST.",
+  trap:"Common stockholders rank dead last in liquidation. Limited liability caps your loss at your investment." },
+"preferred-stock":{
+  examples:[{ title:"A stock that acts like a bond", scenario:"You want steady income and to rank ahead of common holders, but you don't need a vote.",
+    result:"<b>Preferred stock</b> fits — fixed dividend, paid before common, senior to common in liquidation, usually non-voting." }],
+  memory:"Fixed dividend, paid before common, usually no vote.",
+  trap:"Preferred behaves like a bond (rate-sensitive) but ranks BELOW all bonds and ABOVE common." },
+"preferred-types":{
+  examples:[{ title:"Catching up on skipped dividends", scenario:"A company skips its preferred dividend for two years, then wants to pay common holders.",
+    result:"If the preferred is <b>cumulative</b>, all skipped (arrears) dividends must be paid first before any common dividend." }],
+  memory:"Cumulative (arrears accrue), participating, convertible, callable.",
+  trap:"CUMULATIVE preferred: missed dividends accumulate and must be cleared before common gets a dime." },
+"adr":{
+  examples:[{ title:"Foreign stock, U.S. convenience", scenario:"You buy an ADR of a European company; the euro then weakens against the dollar.",
+    result:"You own foreign shares trading in USD on a U.S. exchange — but the weaker euro <b>cuts your dollar return</b> (currency risk remains)." }],
+  memory:"Foreign shares trading in USD on U.S. exchanges.",
+  trap:"ADRs still carry CURRENCY risk (the underlying is foreign-denominated), and voting rights may be limited." },
+"rights-warrants":{
+  examples:[{ title:"Short-term vs long-term", scenario:"Existing shareholders get to buy new shares at a discount within 30 days; separately, a bond comes with a 5-year option to buy stock.",
+    result:"The first is a <b>right</b> (short-term, below market, preemptive); the second is a <b>warrant</b> (long-term sweetener, often above market)." }],
+  memory:"Rights = short-term, at a discount; warrants = long-term sweetener.",
+  trap:"Rights are short-term and issued below market (preemptive); warrants are long-term and usually above market." },
+"voting-methods":{
+  examples:[{ title:"Helping the little guy", scenario:"A minority shareholder owns 100 shares with 5 board seats up for election.",
+    result:"Under <b>cumulative</b> voting they get 500 votes (100&times;5) and can pile them all on ONE nominee — a real shot at a seat. Statutory voting (one vote/share/seat) favors the majority." }],
+  memory:"Cumulative helps minority holders; statutory favors the majority.",
+  trap:"Cumulative voting lets you concentrate all your votes on a single candidate." },
+"corporate-actions":{
+  examples:[{ title:"A buyout bid arrives", scenario:"An acquirer offers to buy your shares at a 30% premium.",
+    result:"That's a <b>tender offer</b>. Other corporate actions: proxies (voting by mail), spin-offs (a unit becomes its own company), and stock dividends." }],
+  memory:"Tender offer, proxy, spin-off, stock dividend.",
+  trap:"A tender offer bids to BUY shares (often at a premium); a proxy is how you VOTE when you can't attend." },
+"ex-dividend":{
+  examples:[{ title:"Do you get the dividend?", scenario:"A dividend is declared. You buy the stock ON the ex-dividend date.",
+    result:"You do NOT receive this dividend — the seller does. You must buy <b>before</b> the ex-date. The price typically drops by ~the dividend that morning." }],
+  memory:"Buy BEFORE the ex-date to receive the dividend.",
+  trap:"On or after the ex-date the seller keeps the dividend. Drag your purchase date in the dividend-timeline graphic." },
+"stock-split":{
+  examples:[{ title:"More shares, same pie", scenario:"You own 100 shares at $80 and the company does a 2-for-1 split.",
+    result:"You now own 200 shares at $40 — total value ($8,000) and total cost basis are unchanged; only the per-share figures halve." }],
+  memory:"More shares, lower price, same total value.",
+  trap:"A split changes share count and price proportionally; total value and total basis stay the same. Reverse splits go the other way (often to keep a listing)." },
+"rule-144":{
+  examples:[{ title:"Selling insider shares", scenario:"A company officer wants to sell restricted stock she has held for over six months.",
+    result:"Rule 144 lets her, subject to a <b>volume limit</b> (greater of 1% of shares outstanding or average weekly volume) and Form 144 if the sale tops 5,000 shares or $50,000." }],
+  memory:"Resale of restricted/control stock: 6-mo hold + volume limits.",
+  trap:"Volume cap = greater of 1% of outstanding shares OR the 4-week average weekly volume." },
+"liquidation-priority":{
+  examples:[{ title:"The payout order", scenario:"A bankrupt firm has secured lenders, debenture holders, preferred stock, and common stock.",
+    result:"Paid top-down: <b>secured &rarr; unsecured (debentures) &rarr; subordinated &rarr; preferred &rarr; common</b>. Common holders get only what's left." }],
+  memory:"Secured &rarr; unsecured &rarr; subordinated &rarr; preferred &rarr; common.",
+  trap:"All bondholders rank ABOVE all stockholders. Common is the residual claimant — last in line. Use the waterfall graphic." },
+"mutual-fund":{
+  examples:[{ title:"What price do you get?", scenario:"You place a buy order for a mutual fund at 11 a.m.",
+    result:"You get that day's <b>closing NAV</b>, computed after the market closes — the 'forward pricing' rule. The fund must redeem within 7 days." }],
+  memory:"Pooled fund, priced once daily at NAV (forward pricing).",
+  trap:"Orders execute at the NEXT computed NAV, not a live price. Share classes (A/B/C) differ only in how you pay the load." },
+"etf":{
+  examples:[{ title:"Why ETFs are tax-efficient", scenario:"You want intraday trading and low capital-gains 'leakage' versus a mutual fund.",
+    result:"An <b>ETF</b> trades all day at market prices, and its in-kind creation/redemption avoids triggering capital gains inside the fund." }],
+  memory:"Trades all day like a stock; tax-efficient and low-cost.",
+  trap:"ETFs price intraday (vs once-daily NAV for mutual funds). Authorized participants keep the price near NAV via arbitrage." },
+"closed-end-fund":{
+  examples:[{ title:"Buying at a discount", scenario:"A closed-end fund's shares trade at $9 while its NAV is $10.",
+    result:"It trades at a <b>discount</b> to NAV — possible because closed-end funds have fixed shares and don't redeem. They can also use leverage." }],
+  memory:"Fixed shares; trades at a premium or discount to NAV.",
+  trap:"Unlike open-end funds, CEFs don't redeem shares, so price can drift above or below NAV." },
+"uit":{
+  examples:[{ title:"Set-and-forget basket", scenario:"An investor wants a fixed portfolio of bonds with no manager making changes and a known end date.",
+    result:"A <b>UIT</b> fits — a fixed, unmanaged portfolio with no board of directors that self-liquidates at a preset date." }],
+  memory:"Fixed, unmanaged basket with an end date.",
+  trap:"A UIT has NO active management and NO board of directors. It is redeemable and terminates on schedule." },
+"etn":{
+  examples:[{ title:"It looks like a fund, but isn't", scenario:"You buy an ETN tracking an index, issued by a bank that later goes bankrupt.",
+    result:"You can lose everything — an <b>ETN is an unsecured bank IOU</b>, not a fund. It owns no assets, so issuer failure wipes it out." }],
+  memory:"Unsecured bank IOU, NOT a fund.",
+  trap:"ETN = issuer credit risk (no underlying portfolio). An ETF holds real securities; an ETN holds only a promise." },
+"leveraged-etf":{
+  examples:[{ title:"Why not hold it?", scenario:"A flat-but-choppy index ends the month unchanged; you held a 2x ETF on it.",
+    result:"You likely LOST money — daily resetting causes path-dependent <b>decay</b>, so multi-day returns diverge from 2&times; the index." }],
+  memory:"2x/3x or inverse DAILY returns that decay over time.",
+  trap:"Leveraged/inverse ETFs reset daily and are built for short-term tactical use, never buy-and-hold." },
+"twelve-b-1":{
+  examples:[{ title:"Is it really no-load?", scenario:"A fund charges a 0.50% annual 12b-1 fee and advertises as 'no-load.'",
+    result:"That's not allowed — above <b>0.25%</b> a fund can't call itself no-load. Max 12b-1 is 1% (0.75% distribution + 0.25% service)." }],
+  memory:"Annual marketing/distribution fee, max 1%.",
+  trap:"A 12b-1 above 0.25% disqualifies the 'no-load' label. It's deducted from fund assets every year." },
+"expense-ratio":{
+  examples:[{ title:"Fees compound too", scenario:"Two similar funds: one charges 0.10%, the other 1.10% a year.",
+    result:"The 1% difference compounds into tens of thousands of dollars over decades — the <b>expense ratio</b> comes straight out of your return." }],
+  memory:"Annual cost as a % of assets — lower is better.",
+  trap:"It quietly reduces returns every year. Index funds and ETFs are typically the cheapest." },
+"breakpoint":{
+  examples:[{ title:"An unethical nudge", scenario:"An investor plans to put $24,000 in a Class A fund; the rep avoids suggesting the $25,000 breakpoint to keep a higher commission.",
+    result:"That's a prohibited <b>breakpoint sale</b>. A Letter of Intent (13 months) or Rights of Accumulation could have reached the discount." }],
+  memory:"Volume discount on a fund's front-end load.",
+  trap:"Steering a client just BELOW a breakpoint to preserve commission is prohibited. LOI = 13 months (backdate 90 days); ROA = no time limit." },
+"reit":{
+  examples:[{ title:"High yield, ordinary tax", scenario:"You receive a $1,000 REIT distribution and expect the low qualified-dividend rate.",
+    result:"Most REIT distributions are taxed as <b>ordinary income</b>, not qualified dividends. REITs must pay out 90%+ of taxable income." }],
+  memory:"Real estate that trades like a stock; pays out 90%+.",
+  trap:"REIT distributions are mostly ORDINARY income (not the favorable qualified-dividend rate)." },
+"dpp":{
+  examples:[{ title:"Where can the losses go?", scenario:"A real-estate limited partnership passes through a $20,000 loss to you.",
+    result:"That <b>passive</b> loss can offset only <b>passive</b> income — not your wages or portfolio income. Unused losses suspend until you dispose of the interest." }],
+  memory:"Limited partnership; income and losses flow through.",
+  trap:"Passive losses offset only passive income. DPPs are illiquid and complex — suitability is paramount." },
+"hedge-fund":{
+  examples:[{ title:"Who can invest?", scenario:"A private fund wants to use leverage and shorting without 1940-Act constraints.",
+    result:"It relies on <b>3(c)(1)</b> (&le;100 accredited investors) or <b>3(c)(7)</b> (qualified purchasers only), charging a typical '2 and 20' fee." }],
+  memory:"Private, accredited-only, '2 and 20' fees.",
+  trap:"3(c)(1) caps at 100 accredited owners; 3(c)(7) needs qualified purchasers but no count cap. Expect lockups and leverage." },
+"face-amount-certificate":{
+  examples:[{ title:"A rare relic", scenario:"An old contract promises to pay a fixed sum at a future date in exchange for installment payments.",
+    result:"That's a <b>face-amount certificate company</b> — one of the three Investment Company Act classifications (with management companies and UITs). Rarely seen today." }],
+  memory:"Rare 1940-Act company paying a fixed future sum.",
+  trap:"It's a distinct investment-company type to recognize on the exam, even though it's largely historical." }
+});
+</script>
+<script>
+/* ====================  WAVE 7: INSURANCE + DERIVATIVES + ALTERNATIVES (conceptual)  ==================== */
+enh({
+"annuity":{
+  examples:[{ title:"Taxing a withdrawal", scenario:"You put $50,000 (after-tax) into a non-qualified annuity; it grows to $80,000 and you withdraw $10,000.",
+    result:"That $10,000 comes out <b>earnings-first (LIFO)</b>, fully taxed as ordinary income, plus a 10% penalty if you're under 59&frac12;." }],
+  memory:"Pay in, get payments later; grows tax-deferred.",
+  trap:"Non-qualified annuity withdrawals are LIFO (earnings first), taxed as ordinary income, with a 10% pre-59&frac12; penalty." },
+"fixed-annuity":{
+  examples:[{ title:"Who bears the risk?", scenario:"An insurer guarantees a 4% return on an annuity.",
+    result:"Because the <b>insurer</b> bears the investment risk, a fixed annuity is NOT a security — it's insurance-regulated only." }],
+  memory:"Guaranteed rate; NOT a security.",
+  trap:"No investment risk to the buyer &rarr; not a security. Contrast with variable annuities." },
+"variable-annuity":{
+  examples:[{ title:"Why it's a security", scenario:"Your annuity's value rises and falls with subaccounts you choose.",
+    result:"You bear the market risk, so a <b>variable annuity IS a security</b> — selling it needs a Series 6/7 plus an insurance license. The AIR sets the first payment." }],
+  memory:"Subaccounts; investor bears risk; IS a security.",
+  trap:"Because the investor bears market risk, variable annuities (and variable life) are securities. Beat the AIR &rarr; payment rises." },
+"annuity-payout":{
+  examples:[{ title:"Highest check vs leaving something behind", scenario:"A retiree wants the largest possible monthly payment.",
+    result:"<b>Life-only (straight life)</b> pays the most — but stops at death with nothing for heirs. Period-certain or joint-and-survivor lowers each check to add protection." }],
+  memory:"Life-only pays most but stops at death.",
+  trap:"Life-only = highest payment, no death benefit. More protection (survivor/period certain) = smaller payments." },
+"life-insurance":{
+  examples:[{ title:"Cheap coverage vs lifelong", scenario:"A young parent needs maximum death benefit for the lowest cost.",
+    result:"<b>Term</b> life fits — pure coverage, no cash value, lowest premium. Whole/universal add lifelong coverage and cash value; variable life invests it (a security)." }],
+  memory:"Term = cheap pure coverage; whole/UL = lifelong + cash value.",
+  trap:"Variable life is a SECURITY (subaccounts). Term builds no cash value." },
+"separate-account":{
+  examples:[{ title:"Which account, which risk?", scenario:"Compare where a fixed annuity and a variable annuity hold their money.",
+    result:"Fixed/guaranteed products sit in the insurer's <b>general account</b> (insurer's risk); variable products sit in the <b>separate account</b> (your risk) — which is why they're securities." }],
+  memory:"General account = guaranteed; separate = variable (your risk).",
+  trap:"Variable products live in the separate account, and that's exactly what makes them securities." },
+"surrender-charge":{
+  examples:[{ title:"Cashing out early", scenario:"You withdraw from an annuity in year 2, when the surrender schedule is 6%.",
+    result:"You pay a <b>6% surrender charge</b> on the withdrawal. The schedule declines each year, reaching 0% after the surrender period." }],
+  memory:"Back-end fee for early annuity withdrawal; declines yearly.",
+  trap:"Surrender charges (e.g., 7% &rarr; 0% over several years) discourage early exits and are separate from the 10% IRS penalty." },
+"viatical-settlement":{
+  examples:[{ title:"Cash now for a policy", scenario:"A terminally ill policyholder sells their life insurance to an investor for a lump sum.",
+    result:"That's a <b>viatical settlement</b> — the buyer keeps paying premiums and collects the death benefit. These are often analyzed as securities." }],
+  memory:"Sell your life-insurance policy for cash now.",
+  trap:"The investor profits if the insured dies sooner — ethically fraught, and frequently treated as a security." },
+"option":{
+  examples:[{ title:"Right vs obligation", scenario:"You buy a call; someone else writes (sells) it.",
+    result:"You (the buyer) have the <b>right</b> to buy 100 shares at the strike; the writer has the <b>obligation</b> to deliver if assigned. Equity options expire the 3rd Friday." }],
+  memory:"Right (not obligation) to buy (call) or sell (put); 100 shares.",
+  trap:"The buyer holds the right and risks only the premium; the writer takes on the obligation. One contract = 100 shares." },
+"vertical-spread":{
+  examples:[{ title:"Capping cost and gain", scenario:"You buy a $50 call and sell a $55 call, both same expiration.",
+    result:"That's a <b>bull call spread</b> (a debit spread) — cheaper than the call alone, but your max gain is capped at the $55 strike." }],
+  memory:"Buy one, sell another (same type) — capped cost AND gain.",
+  trap:"Debit spreads (bull call / bear put) cost money up front; credit spreads (bear call / bull put) collect premium." },
+"collar":{
+  examples:[{ title:"Cheap insurance", scenario:"You own stock, buy a protective put, and sell a call to pay for it.",
+    result:"That's a <b>collar</b> — the short-call premium funds the put, giving cheap downside protection. The cost: your upside is capped at the call strike." }],
+  memory:"Stock + protective put + short call = cheap protection, capped upside.",
+  trap:"The short call pays for the put but forfeits gains above its strike. Net cost can be near zero." },
+"index-option":{
+  examples:[{ title:"Hedging the whole market", scenario:"You want to protect a diversified portfolio against a market drop without selling stocks.",
+    result:"Buy <b>index put options</b> — they track a basket and <b>settle in cash</b> (no shares change hands), making them ideal portfolio hedges." }],
+  memory:"Option on a whole index; settles in CASH.",
+  trap:"Index options settle in cash, not shares — handy for hedging systematic (market) risk." },
+"futures":{
+  examples:[{ title:"Obligation, not choice", scenario:"A farmer locks in a price to sell wheat in six months via a futures contract.",
+    result:"Both sides are <b>obligated</b> to transact at that price — unlike an option (a right). Futures are standardized/exchange-traded; forwards are custom/OTC." }],
+  memory:"Both sides OBLIGATED to transact at a set future price.",
+  trap:"Futures/forwards are obligations (options are rights). Futures are marked-to-market daily; forwards carry counterparty risk." },
+"options-greeks":{
+  examples:[{ title:"The clock is ticking", scenario:"You hold an at-the-money option that loses value each day even though the stock barely moves.",
+    result:"That's <b>theta</b> (time decay) at work — and it accelerates as expiration nears. Delta measures sensitivity to the stock; vega to volatility." }],
+  memory:"Delta = stock sensitivity; theta = daily time decay.",
+  trap:"Theta accelerates near expiration — options are 'wasting assets.' Drag the days in the time-decay graphic." },
+"commodities":{
+  examples:[{ title:"An inflation hedge (with a tax wrinkle)", scenario:"An investor buys gold and also a rare-coin collection as inflation hedges.",
+    result:"Commodities like gold hedge inflation (often via futures/ETFs). But <b>collectibles</b> (coins, art) face a higher 28% max long-term capital-gains rate." }],
+  memory:"Physical goods; inflation hedge via futures/ETFs.",
+  trap:"Collectibles are taxed at up to 28% LTCG (vs 20% for most assets) — a favorite exam detail." },
+"digital-assets":{
+  examples:[{ title:"Sell crypto, owe tax", scenario:"You sell Bitcoin you've held for two years at a $5,000 gain.",
+    result:"Crypto is <b>property</b> to the IRS, so the sale is a taxable event — here a long-term capital gain. Bitcoin is generally a commodity; many tokens are securities under Howey." }],
+  memory:"Crypto: Howey decides 'security'; IRS taxes it as property.",
+  trap:"Every crypto sale/exchange is a taxable event. Whether a token is a security turns on the Howey test." }
+});
+</script>
 <script>boot();</script>
 </body>
 </html>
