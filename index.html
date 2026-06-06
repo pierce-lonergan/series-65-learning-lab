@@ -4902,6 +4902,235 @@ enh({
   trap:"Every crypto sale/exchange is a taxable event. Whether a token is a security turns on the Howey test." }
 });
 </script>
+<script>
+/* ====================  WAVE 8: TAX CLUSTER (conceptual)  ==================== */
+enh({
+"amt":{ memory:"Run two tax calculations; pay the higher one.",
+  trap:"The ISO bargain element and certain private-activity-bond interest are AMT preference items that can trigger it. Timing-driven AMT comes back as a credit." },
+"iso":{ memory:"No ordinary tax at exercise; AMT watches the bargain element.",
+  trap:"Meet the holding rules and you get capital-gains treatment &mdash; but the bargain element is AMT income the year you exercise." },
+"nso":{
+  examples:[{ title:"Taxed right away", scenario:"You exercise an NSO with a $40 bargain element per share.",
+    result:"That $40 is <b>ordinary income</b> at exercise (no AMT gymnastics) &mdash; simpler than an ISO, but taxed at the higher ordinary rate." }],
+  memory:"Bargain element taxed as ordinary income at exercise.",
+  trap:"Unlike an ISO, an NSO triggers ordinary tax immediately at exercise &mdash; no AMT preference, but a higher rate." },
+"strike-price":{
+  examples:[{ title:"Locked for life", scenario:"Your option's strike is $10; the stock rises to $100.",
+    result:"You can still buy at <b>$10</b> &mdash; the strike is frozen at grant regardless of where the stock goes." }],
+  memory:"The locked price you pay per share; set at grant.",
+  trap:"The strike never changes over the option's life, no matter what the stock does." },
+"fmv":{
+  examples:[{ title:"Which day's value?", scenario:"You exercise options on a day the stock's fair value is $54.",
+    result:"The IRS uses the <b>FMV on the exercise day</b> ($54) to measure your bargain element. For a private company, FMV comes from a 409A appraisal." }],
+  memory:"What a share is actually worth now (a 409A appraisal if private).",
+  trap:"It's the FMV on the EXERCISE day that sets the bargain element &mdash; not the grant-date value." },
+"409a":{
+  examples:[{ title:"Pricing private shares", scenario:"A startup with no public market needs to set option strike prices defensibly.",
+    result:"It commissions a <b>409A valuation</b> &mdash; an independent appraisal (refreshed ~yearly) that establishes the per-share FMV." }],
+  memory:"Independent appraisal that sets a private company's FMV.",
+  trap:"Without a public price, the 409A valuation defends the strike price and is refreshed roughly annually or after big events." },
+"exercise":{
+  examples:[{ title:"From right to ownership", scenario:"You pay your strike price and the shares become yours.",
+    result:"That act is <b>exercising</b>. The exercise day's FMV (minus your strike) is the taxable benefit the IRS measures." }],
+  memory:"Using the option to actually buy the shares.",
+  trap:"The day you exercise is when a right becomes owned stock &mdash; and when the bargain element is measured." },
+"spread":{
+  examples:[{ title:"The per-share gap", scenario:"FMV is $50 and your strike is $10.",
+    result:"The <b>spread</b> is $50 &minus; $10 = $40 per share. Multiply by your share count to get the bargain element." }],
+  memory:"FMV minus strike, per share.",
+  trap:"Spread is per share; the bargain element is spread &times; number of shares." },
+"depreciation":{
+  examples:[{ title:"Spreading a cost", scenario:"A business buys a $10,000 machine expected to last 10 years.",
+    result:"Instead of deducting $10,000 at once, it <b>depreciates</b> &mdash; deducting a slice each year. The method (even vs front-loaded) sets the pace." }],
+  memory:"Spread an asset's cost across its useful life.",
+  trap:"Method matters: straight-line is even; declining-balance front-loads. MACRS (fast) vs ADS (slow) drives the AMT adjustment." },
+"straight-line":{
+  examples:[{ title:"Even slices", scenario:"A $10,000 asset depreciated straight-line over 10 years.",
+    result:"<b>$1,000 deducted every year</b> &mdash; the simplest, slowest method. The AMT's ADS system leans on it." }],
+  memory:"Equal deduction every year.",
+  trap:"Straight-line is the slowest method, which is why it gives smaller early deductions than accelerated methods." },
+"declining-balance":{
+  examples:[{ title:"Front-loaded write-offs", scenario:"A 200% declining-balance method is applied to a new asset.",
+    result:"Deductions are large early and shrink over time. MACRS uses 200% (double-declining); the AMT caps you at the gentler 150%." }],
+  memory:"Front-loaded: a fixed % of the shrinking value.",
+  trap:"200% declining-balance (MACRS) is fast; the AMT's ADS limits you to 150% &mdash; that gap is the AMT adjustment." },
+"ads":{
+  examples:[{ title:"The slow lane", scenario:"For AMT, an asset must be depreciated over a longer life using a gentler method.",
+    result:"That's <b>ADS</b> &mdash; smaller early deductions than MACRS, so you report more income early under AMT (an upward adjustment)." }],
+  memory:"The slow depreciation system the AMT requires.",
+  trap:"ADS uses longer lives and gentler methods than MACRS, producing more early AMT income." },
+"timing-difference":{
+  examples:[{ title:"It all evens out", scenario:"Over an asset's life, fast (MACRS) and slow (ADS) depreciation deduct the same total.",
+    result:"They differ only in <b>timing</b>, so the yearly AMT adjustments sum to <b>zero</b> &mdash; and the AMT you paid becomes a Minimum Tax Credit." }],
+  memory:"Only WHEN you deduct differs; totals match and net to zero.",
+  trap:"Because it's a timing difference, AMT paid isn't lost &mdash; it converts to a credit you reclaim later." },
+"section-179":{
+  examples:[{ title:"Write it off now, cleanly", scenario:"A business expenses $50,000 of equipment under Section 179.",
+    result:"It deducts 100% this year AND there's <b>no AMT adjustment</b> &mdash; Section 179 is treated the same for regular tax and AMT." }],
+  memory:"Expense 100% of equipment now; NO AMT adjustment.",
+  trap:"Section 179 (and bonus depreciation) match for regular tax and AMT &mdash; unlike ordinary MACRS, they create no add-back." },
+"bonus-depreciation":{
+  examples:[{ title:"Fast and AMT-clean", scenario:"A company claims bonus depreciation under §168(k).",
+    result:"Large up-front deduction with <b>no AMT adjustment</b> &mdash; the deduction matches for both tax systems." }],
+  memory:"Big up-front write-off that matches for AMT too.",
+  trap:"Like Section 179, bonus depreciation creates no AMT depreciation add-back." },
+"mtc":{
+  examples:[{ title:"Getting it back", scenario:"You pay $8,000 of AMT this year purely because of accelerated depreciation.",
+    result:"That generates a <b>Minimum Tax Credit</b> of $8,000 &mdash; carried forward indefinitely and used in a future year when regular tax exceeds AMT." }],
+  memory:"Pay timing-driven AMT now, credit it back later.",
+  trap:"The MTC carries forward forever and offsets regular tax when it later exceeds AMT &mdash; so timing-driven AMT isn't a permanent loss." },
+"capital-gains":{
+  examples:[{ title:"How long did you hold it?", scenario:"You sell a stock for a $10,000 profit after holding it 14 months, in the 32% bracket.",
+    result:"Held over a year &rarr; <b>long-term</b>, taxed at 15% (not 32%) &mdash; a $1,700 saving versus short-term. High earners add 3.8% NIIT." }],
+  memory:"Held &gt;1yr = low long-term rates; &le;1yr = ordinary.",
+  trap:"Short-term gains are taxed like wages (up to 37%). The one-year line is a hard cliff &mdash; one day matters." },
+"ordinary-income":{
+  examples:[{ title:"The higher-rate bucket", scenario:"Compare a $1,000 short-term trading gain with a $1,000 long-term gain.",
+    result:"The short-term gain is <b>ordinary income</b> (up to 37%); the long-term gain enjoys 0/15/20% &mdash; same profit, very different tax." }],
+  memory:"Wages, interest, short-term gains &mdash; taxed at regular brackets.",
+  trap:"Ordinary income is the higher-rate bucket. ISOs aim to convert gains into the cheaper long-term form; NSOs don't." },
+"basis":{
+  examples:[{ title:"Figuring the taxable gain", scenario:"You buy at $40 (plus $200 of reinvested dividends along the way) and sell at $60 a share of 100 shares.",
+    result:"Basis rises with reinvested dividends, shrinking your taxable gain. Sale price &minus; basis = the capital gain you owe tax on." }],
+  memory:"What you paid; sale price minus basis = your gain.",
+  trap:"Reinvested dividends and the ISO bargain element raise basis. At death, a <b>step-up</b> resets basis to date-of-death value." }
+});
+</script>
+<script>
+/* ====================  WAVE 9: PORTFOLIO, PERFORMANCE, STRATEGIES, TRADING  ==================== */
+enh({
+"systematic-risk":{
+  examples:[{ title:"What diversification can't fix", scenario:"You own 200 stocks, but a recession and rising rates drag them all down together.",
+    result:"That's <b>systematic</b> (market) risk &mdash; it hits everything and can't be diversified away. Company-specific (non-systematic) risk is what diversification removes." }],
+  memory:"Systematic = market-wide (can't diversify); non-systematic = specific (can).",
+  trap:"Remember PRIME for systematic risks: Purchasing-power, Reinvestment, Interest-rate, Market, Exchange-rate. CAPM pays you only for systematic risk." },
+"alpha":{
+  examples:[{ title:"Did the manager add value?", scenario:"CAPM said to expect 12% for the risk taken; the fund returned 14%.",
+    result:"<b>Alpha = +2%</b> &mdash; outperformance beyond what the beta justified. Negative alpha means the manager lagged the model." }],
+  memory:"Return above what CAPM predicted for the risk taken.",
+  trap:"Positive alpha is skill (or luck) beyond beta. It's the scoreboard for active management." },
+"currency-risk":{
+  examples:[{ title:"A good stock, a bad exchange rate", scenario:"Your European stock rises 8%, but the euro falls 10% against the dollar.",
+    result:"In dollars you actually LOST &mdash; that's <b>currency risk</b>. It hits ADRs and foreign bonds; hedge with forwards or buy USD-denominated assets." }],
+  memory:"Foreign returns shrink when the foreign currency falls.",
+  trap:"Currency risk is systematic for foreign holdings. A great foreign investment can still lose money once translated to dollars." },
+"modern-portfolio-theory":{
+  examples:[{ title:"Judge the portfolio, not the stock", scenario:"A volatile stock looks risky alone but moves opposite your other holdings.",
+    result:"Under <b>MPT</b> it can REDUCE total portfolio risk &mdash; what matters is its effect on the whole, not its standalone volatility." }],
+  memory:"Optimize the whole portfolio's risk/return, not single stocks.",
+  trap:"MPT says combine low-correlation assets to cut risk without cutting return. Use the diversification graphic." },
+"efficient-frontier":{
+  examples:[{ title:"Be on the curve", scenario:"Two portfolios have the same risk, but one offers a higher expected return.",
+    result:"The higher-return one is on the <b>efficient frontier</b>; the other is inefficient (below it). Adding a risk-free asset creates the Capital Market Line." }],
+  memory:"The best risk/return combos &mdash; aim to be ON the curve.",
+  trap:"Anything below the frontier is inefficient. The tangent point (with a risk-free asset) is the market portfolio." },
+"monte-carlo":{
+  examples:[{ title:"Will the money last?", scenario:"A planner runs 10,000 random market scenarios on a retiree's portfolio.",
+    result:"The output is a <b>probability</b> &mdash; e.g., an 85% chance the money lasts 30 years &mdash; rather than a single point estimate." }],
+  memory:"Thousands of random scenarios &rarr; a probability of success.",
+  trap:"Monte Carlo gives odds, not certainty. Its answer is only as good as its return/volatility assumptions." },
+"time-weighted-return":{
+  examples:[{ title:"Skill vs timing", scenario:"A client dumps in cash right before a rally; the fund itself was flat.",
+    result:"<b>Time-weighted</b> return ignores that cash-flow timing (judging the manager); <b>dollar-weighted</b> (IRR) reflects the investor's lucky timing." }],
+  memory:"TWR judges the manager; DWR judges your timing.",
+  trap:"Investor controls the cash-flow timing &rarr; use dollar-weighted. Evaluating manager skill &rarr; use time-weighted." },
+"benchmarks":{
+  examples:[{ title:"Pick the right yardstick", scenario:"You want to judge a small-cap fund's performance.",
+    result:"Compare it to the <b>Russell 2000</b> (small caps), not the S&P 500 (large caps). The Dow is just 30 names and price-weighted." }],
+  memory:"S&P 500 = large cap; Russell 2000 = small cap; Dow = 30, price-weighted.",
+  trap:"Match the fund to the correct index. The Dow is price-weighted; the S&P 500 is cap-weighted." },
+"compound-growth-concept":{
+  examples:[{ title:"The snowball", scenario:"You leave $10,000 to grow at 8% and never add a dime.",
+    result:"It doesn't grow in a straight line &mdash; returns earn returns, so the curve bends sharply upward over decades. Use the compounding graphic." }],
+  memory:"Returns earn returns &mdash; it snowballs over time.",
+  trap:"Starting early matters more than picking the perfect investment, because compounding rewards time." },
+"dca":{
+  examples:[{ title:"Buying more when it's cheap", scenario:"You invest $300 every month: at $10/share you get 30 shares; at $6 you get 50.",
+    result:"Fixed dollars buy more shares when prices are low, so your average <b>cost</b> per share ends up BELOW the average price." }],
+  memory:"Fixed $ at intervals &rarr; average cost &lt; average price.",
+  trap:"DCA lowers average cost per share mechanically &mdash; it doesn't guarantee a profit, just removes timing guesswork." },
+"asset-allocation":{
+  examples:[{ title:"The biggest decision", scenario:"A portfolio drifts to 80% stocks after a bull market; the target was 60%.",
+    result:"<b>Rebalancing</b> trims stocks back to 60% &mdash; a built-in 'sell high, buy low.' The stock/bond/cash mix drives most long-run results." }],
+  memory:"The mix of stocks/bonds/cash drives most of your results.",
+  trap:"Strategic = long-term targets; tactical = short-term tilts; dynamic = rule-based (target-date). Rebalancing restores targets." },
+"investment-styles":{
+  examples:[{ title:"Growth or value?", scenario:"One stock has a high P/E and fast earnings but no dividend; another is cheap with a solid dividend.",
+    result:"The first is a <b>growth</b> stock; the second is <b>value</b>. GARP blends the two." }],
+  memory:"Growth = high P/E, fast earnings; value = cheap, low P/E.",
+  trap:"Growth reinvests (low dividends); value is undervalued (higher dividends). Active tries to beat a benchmark; passive matches it." },
+"market-cap":{
+  examples:[{ title:"Sizing a company", scenario:"A firm trades at $40 with 50 million shares outstanding.",
+    result:"Market cap = $40 &times; 50M = <b>$2 billion</b> &mdash; right at the small/mid-cap line. Smaller caps carry more risk and potential reward." }],
+  memory:"Large &gt; $10B, mid $2-10B, small $300M-2B.",
+  trap:"Market cap = price &times; shares. Micro/small caps are riskier and less liquid than large caps." },
+"value-averaging":{
+  examples:[{ title:"Stricter than DCA", scenario:"Your plan is to grow the account by exactly $1,000 each month. After a market drop it is $400 short.",
+    result:"You invest <b>$1,400</b> this month to hit the target &mdash; buying more after drops and less after gains. More contrarian than dollar-cost averaging." }],
+  memory:"Adjust contributions to hit a target value &mdash; buy more after drops.",
+  trap:"Value averaging forces bigger buys when prices fall &mdash; aggressive, and it can demand large contributions in downturns." },
+"sector-rotation":{
+  examples:[{ title:"Following the cycle", scenario:"The economy is entering a recession.",
+    result:"Money rotates from cyclicals (autos, travel) into <b>defensives</b> (utilities, staples, healthcare) that hold up when spending falls." }],
+  memory:"Cyclicals in booms; defensives in downturns.",
+  trap:"Cyclicals lead expansions; defensives outperform near the peak and into recession &mdash; it tracks the business cycle." },
+"risk-taxonomy":{
+  examples:[{ title:"Diversifiable or not?", scenario:"Sort interest-rate risk and a single company's lawsuit risk.",
+    result:"Interest-rate risk is <b>systematic</b> (PRIME &mdash; can't diversify); the lawsuit is <b>non-systematic</b> (business risk &mdash; diversifiable)." }],
+  memory:"PRIME = the systematic (undiversifiable) risks.",
+  trap:"PRIME: Purchasing-power, Reinvestment, Interest-rate, Market, Exchange-rate. Business/credit/liquidity risks ARE diversifiable." },
+"holding-period":{
+  examples:[{ title:"One day across the line", scenario:"You sell at a gain after exactly 12 months vs after 13 months.",
+    result:"At 12 months it's <b>short-term</b> (ordinary rates, up to 37%); at 13 months it's <b>long-term</b> (0/15/20%). See the holding-period cliff graphic." }],
+  memory:"&le;1yr = ordinary rates; &gt;1yr = long-term rates.",
+  trap:"The one-year boundary is a hard cliff &mdash; held 'more than' a year (not 'a year or more') gets the low rate." },
+"short-selling":{
+  examples:[{ title:"Betting it falls", scenario:"You borrow and sell a $50 stock, planning to rebuy lower &mdash; but it soars to $90.",
+    result:"You've lost $40/share and could lose more &mdash; losses are <b>theoretically unlimited</b>. You also owe any dividends to the lender." }],
+  memory:"Borrow, sell high, buy back lower &mdash; unlimited loss risk.",
+  trap:"A short's loss is unlimited (the stock can rise forever). It requires a margin account and a Reg SHO locate." },
+"order-types":{
+  examples:[{ title:"Guaranteeing price vs execution", scenario:"You set a stop-loss at $45; the stock gaps down to $40 overnight.",
+    result:"A <b>stop</b> order becomes a MARKET order once triggered &mdash; so you may fill near $40, not $45. A stop-LIMIT would protect price but risk no fill." }],
+  memory:"Market = now; limit = your price; stop = trigger then market.",
+  trap:"A triggered stop has NO price guarantee (it becomes a market order). Use stop-limit to control price, accepting non-fill risk." },
+"settlement":{
+  examples:[{ title:"When do you really own it?", scenario:"You buy a stock on Monday; the company's record date is Tuesday.",
+    result:"With <b>T+1</b> settlement you become the owner of record in time. Settlement timing is exactly what sets the ex-dividend date." }],
+  memory:"T+1: cash and securities change hands one business day after the trade.",
+  trap:"Regular-way settlement is now T+1. It determines who's the owner of record for dividends and drives the ex-date." },
+"trade-confirmation":{
+  examples:[{ title:"Your official receipt", scenario:"After a trade, you receive a document at settlement.",
+    result:"That's the <b>trade confirmation</b> &mdash; it must show the security, quantity, price, the firm's capacity (agent vs principal), any commission/markup, and the settlement date." }],
+  memory:"Written receipt of the trade, delivered by settlement.",
+  trap:"It must disclose whether the firm acted as agent or principal, plus the commission or markup." },
+"yield":{
+  examples:[{ title:"Comparing income", scenario:"A muni yields 3% and a corporate yields 4%.",
+    result:"The raw yields aren't comparable &mdash; the muni is tax-free, so you gross it up with a taxable-equivalent yield before judging." }],
+  memory:"Annual income as a % &mdash; roughly interest &divide; price.",
+  trap:"Tax-free munis quote lower yields; always convert to taxable-equivalent yield to compare with taxable bonds." },
+"principal-bond":{
+  examples:[{ title:"Getting your money back", scenario:"You buy one bond at par.",
+    result:"You lent the issuer <b>$1,000 of principal</b>, repaid at maturity. Your interest is calculated on that principal; repayment depends on no default." }],
+  memory:"The amount you lend, repaid at maturity (par/face).",
+  trap:"Interest accrues on principal. Getting principal back at maturity assumes the issuer doesn't default." },
+"par-value":{
+  examples:[{ title:"Above or below the sticker", scenario:"A bond quoted at 102 vs one quoted at 98.",
+    result:"102 = $1,020 (a <b>premium</b>); 98 = $980 (a <b>discount</b>). Par (100) = $1,000, repaid at maturity. Coupons are computed on par." }],
+  memory:"A bond's face, usually $1,000; repaid at maturity.",
+  trap:"Quotes are a percent of par: above 100 = premium, below = discount. The coupon is always based on par, not market price." },
+"share-classes":{
+  examples:[{ title:"A or C?", scenario:"A young investor will hold a fund for 20 years and invests a large lump sum.",
+    result:"<b>Class A</b> fits &mdash; a front-end load but low ongoing fees and breakpoint discounts. Class C (level 12b-1) suits short-to-medium holds." }],
+  memory:"A = front load (long-term/large $); C = level load (short-term).",
+  trap:"Class A rewards large, long-term investors via breakpoints; Class C's ongoing 12b-1 quietly costs more over many years." },
+"leverage-types":{
+  examples:[{ title:"Two amplifiers", scenario:"A factory has huge fixed costs; a separate firm funds itself with heavy debt.",
+    result:"The first has high <b>operating</b> leverage (fixed costs magnify profit swings); the second has high <b>financial</b> leverage (debt magnifies returns to equity)." }],
+  memory:"Operating leverage = fixed costs; financial leverage = debt.",
+  trap:"Both magnify gains AND losses. High leverage boosts good years and deepens bad ones." }
+});
+</script>
 <script>boot();</script>
 </body>
 </html>
