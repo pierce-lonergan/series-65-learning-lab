@@ -206,6 +206,11 @@ window.MathJax = {
   .minichart { margin-top: 12px; }
   .minichart .mc-title { font-size: 11.5px; color: var(--ink-dim); margin-bottom: 5px; }
   .minichart svg { width: 100%; height: auto; display: block; }
+  .memory { background: rgba(139,124,255,.13); border-left: 3px solid var(--accent2); border-radius: 8px; padding: 8px 12px 8px 34px; font-size: 13px; margin: 0 0 14px; position: relative; }
+  .memory::before { content: "🧠"; position: absolute; left: 11px; top: 8px; }
+  .trap { background: rgba(255,107,107,.1); border: 1px solid rgba(255,107,107,.4); border-radius: 10px; padding: 10px 13px; font-size: 13.5px; margin: 16px 0; }
+  .trap .trap-h { display: block; font-size: 11px; text-transform: uppercase; letter-spacing: .1em; color: var(--bad); font-weight: 700; margin-bottom: 4px; }
+  .trap .trap-h::before { content: "\26A0  "; }
   .related { margin-top: 22px; }
   .related .rt { font-size: 11.5px; text-transform: uppercase; letter-spacing: .1em; color: var(--ink-dim); margin-bottom: 8px; }
   .rel-chip { display: inline-block; margin: 0 7px 7px 0; padding: 6px 12px; border: 1px solid var(--line); border-radius: 999px; font-size: 12.5px; cursor: pointer; color: var(--term); }
@@ -1266,10 +1271,12 @@ function renderDrawer(){
   let html = '<h2 class="no-link">'+g.term+'</h2>';
   if(g.expand) html += '<div class="expand-sub no-link">'+g.expand+'</div>';
   if(g.eli5) html += '<div class="eli5 no-link">'+g.eli5+'</div>';
+  if(g.memory) html += '<div class="memory">'+g.memory+'</div>';
   if(g.equation) html += renderEquation(g.equation);
   if(g.full) html += g.full;
   if(g.graphic && GRAPHICS[g.graphic]) html += '<div class="graphic" data-graphic="'+g.graphic+'"></div>';
   if(g.examples && g.examples.length) html += renderExamples(g.examples);
+  if(g.trap) html += '<div class="trap"><span class="trap-h">Exam trap</span>'+g.trap+'</div>';
   if(g.worked) html += '<div class="worked"><div class="wt">Worked example</div>'+g.worked+'</div>';
   if(g.deeper) html += '<details class="deeper"><summary>Go deeper</summary><div class="deeper-in">'+g.deeper+'</div></details>';
   if(g.related && g.related.length){
@@ -1656,6 +1663,7 @@ const CARDS_DATA = [{"sec":"ECON","front":"GDP vs. GNP","back":"<strong>GDP</str
 /* GLOSSARY_DATA + QUIZ_DATA are appended below in chunks */
 const GLOSSARY_DATA = {};
 const ENHANCE = {};   // rich-content overlay merged onto concepts at boot
+function enh(o){ for(const k in o){ ENHANCE[k]=Object.assign(ENHANCE[k]||{}, o[k]); } }  // per-concept deep merge across chunks
 const QUIZ_DATA = [];
 </script>
 
@@ -3829,6 +3837,63 @@ Object.assign(ENHANCE, {
       chart:{ type:"bars", title:"Beta", data:[{label:"Growth stock",value:1.4,color:"#ff9f43"},{label:"Utility",value:0.6,color:"#5b9dff"},{label:"Blended portfolio",value:1.0,color:"#46d39a"}] } } ],
   graphic:"capm-sml" }
 
+});
+</script>
+<script>
+/* ====================  ACRONYM SWEEP: spell out every bare acronym  ==================== */
+enh({
+"able-account":{ expand:"ABLE — Achieving a Better Life Experience Act: a tax-free savings account for people with disabilities." },
+"amt-adjustment":{ expand:"AMT — Alternative Minimum Tax. The 'adjustment' is the yearly difference between fast (regular) and slow (AMT) depreciation." },
+"amt-preference-item":{ expand:"AMT — Alternative Minimum Tax: a second, parallel tax calculation you compare against your regular tax." },
+"capital-market-line":{ expand:"CML — Capital Market Line (uses total risk); SML — Security Market Line (uses beta)." },
+"cmo":{ expand:"CMO — Collateralized Mortgage Obligation: a mortgage bond sliced into risk layers called tranches." },
+"compliance-program":{ expand:"CCO — Chief Compliance Officer, the person every registered adviser must designate." },
+"coverdell":{ expand:"ESA — Education Savings Account (the 'Coverdell' is named after the senator who sponsored it)." },
+"ebitda":{ expand:"EBIT — Earnings Before Interest and Taxes; EBITDA additionally adds back Depreciation and Amortization." },
+"erisa":{ expand:"ERISA — Employee Retirement Income Security Act of 1974, the federal law protecting private retirement plans." },
+"erisa-vesting":{ expand:"ERISA — Employee Retirement Income Security Act. QDIA — Qualified Default Investment Alternative." },
+"fdic":{ expand:"FDIC — Federal Deposit Insurance Corporation (banks); SIPC — Securities Investor Protection Corporation (brokerages)." },
+"finra-sro":{ expand:"FINRA — Financial Industry Regulatory Authority; SRO — Self-Regulatory Organization." },
+"form-adv":{ expand:"ADV — the Uniform Application for Investment Adviser Registration filed with regulators." },
+"form-crs":{ expand:"CRS — Client (Customer) Relationship Summary, a short plain-English disclosure for retail clients." },
+"gnp":{ expand:"GNP — Gross National Product (by a nation's residents); GDP — Gross Domestic Product (within its borders)." },
+"go-revenue-bond":{ expand:"GO — General Obligation bond, backed by the issuer's full taxing power." },
+"ia-net-worth":{ expand:"IA — Investment Adviser (the firm)." },
+"iar-ce":{ expand:"IAR — Investment Adviser Representative; CE — Continuing Education." },
+"leveraged-etf":{ expand:"ETF — Exchange-Traded Fund. Leveraged/inverse versions multiply or reverse an index's daily move." },
+"macd":{ expand:"MACD — Moving Average Convergence Divergence, a momentum indicator." },
+"macrs":{ expand:"MACRS — Modified Accelerated Cost Recovery System, the fast depreciation method used for regular taxes." },
+"non-amt-munis":{ expand:"AMT — Alternative Minimum Tax; munis — municipal bonds. These are free of both regular tax and AMT." },
+"qdro":{ expand:"QDRO — Qualified Domestic Relations Order, used to split retirement assets in a divorce." },
+"qtip-trust":{ expand:"QTIP — Qualified Terminable Interest Property trust." },
+"roth-ira":{ expand:"IRA — Individual Retirement Account; the Roth version is funded with after-tax dollars." },
+"rule-144a":{ expand:"QIB — Qualified Institutional Buyer, an institution managing $100M+ in securities." },
+"savings-bonds":{ expand:"Series EE and Series I — nonmarketable U.S. Treasury savings bonds sold to individuals." },
+"secure-act":{ expand:"SECURE — Setting Every Community Up for Retirement Enhancement Act." },
+"sep-ira":{ expand:"SEP — Simplified Employee Pension; SIMPLE — Savings Incentive Match Plan for Employees." },
+"strips":{ expand:"STRIPS — Separate Trading of Registered Interest and Principal of Securities (zero-coupon Treasuries)." },
+"tod-pod":{ expand:"TOD — Transfer on Death (securities); POD — Pay on Death (bank accounts)." },
+"traditional-ira":{ expand:"IRA — Individual Retirement Account (the traditional version uses pre-tax dollars)." },
+"u4-u5":{ expand:"Form U4 registers a rep; Form U5 reports termination; CRD — Central Registration Depository." },
+"ugma-utma":{ expand:"UGMA — Uniform Gifts to Minors Act; UTMA — Uniform Transfers to Minors Act." }
+});
+
+/* ====================  TWEAK: memory hooks + exam traps for Wave 1 concepts  ==================== */
+enh({
+"taxable-equivalent-yield":{ memory:"Tax-free yield on top, (1 &minus; tax rate) on the bottom.", trap:"Use your <b>marginal</b> (top-bracket) rate, not your average rate. And the muni only beats the corporate if its taxable-equivalent yield is <i>higher</i> than what the taxable bond actually pays." },
+"capm":{ memory:"Required return = risk-free + beta &times; (market &minus; risk-free).", trap:"CAPM rewards only <b>systematic</b> risk (beta). It gives zero extra return for company-specific risk, because that can be diversified away." },
+"sharpe":{ memory:"<b>S</b>harpe uses <b>S</b>tandard deviation (total risk).", trap:"Use Sharpe when the portfolio is the client's <b>entire</b> holdings. If it is just one of several, use Treynor (which uses beta) instead." },
+"treynor":{ memory:"Treynor uses beta &mdash; for one piece of a diversified whole.", trap:"The classic mix-up: total risk (&sigma;) &rarr; Sharpe; market risk (&beta;) &rarr; Treynor." },
+"duration":{ memory:"Prices move <i>opposite</i> to rates; duration is how big the move is.", trap:"A <b>zero-coupon bond's duration equals its maturity</b> &mdash; the most rate-sensitive bond for its maturity. Longer maturity and lower coupon both raise duration." },
+"dividend-discount-model":{ memory:"Next dividend &divide; (r &minus; g).", trap:"Growth <b>g must be less than</b> the required return r, or the value is infinite (invalid). Use <i>next</i> year's dividend, D&#8321;." },
+"rule-of-72":{ memory:"72 &divide; rate = years to double.", trap:"Use the whole-number rate (8, not 0.08), and remember it estimates <b>doubling</b>, not tripling." },
+"time-value-of-money":{ memory:"Grow forward with (1+r)&#8319;; discount back by dividing by it.", trap:"A dollar today always beats a dollar later. More compounding periods and higher rates both increase future value." },
+"npv-irr":{ memory:"NPV &gt; 0 &rarr; accept. IRR &gt; required return &rarr; accept.", trap:"The upfront cost is a <b>negative</b> cash flow at t = 0. Don't forget to discount every future cash flow before subtracting the cost." },
+"holding-period-return":{ memory:"(price change + income) &divide; what you paid.", trap:"Include the <b>income</b> (dividends/interest) in the numerator &mdash; leaving it out understates your real return." },
+"sales-charge":{ memory:"POP = NAV &divide; (1 &minus; load).", trap:"The sales charge is a percent of the <b>POP</b>, not the NAV. Maximum load is 8.5%, and only if the fund offers breakpoints, rights of accumulation, and reinvestment at NAV." },
+"real-nominal-return":{ memory:"Real &asymp; nominal &minus; inflation.", trap:"A high nominal return can hide a tiny &mdash; or negative &mdash; real return once inflation is subtracted." },
+"margin":{ memory:"Equity = market value &minus; loan; call if equity falls below 25% of value.", trap:"Reg T <b>initial</b> margin is 50%; FINRA <b>maintenance</b> is 25% long / 30% short. The loan (debit) stays fixed in dollars as the stock moves." },
+"beta":{ memory:"Beta 1 = market; &gt;1 = jumpier; &lt;1 = calmer. Portfolio beta is a weighted average.", trap:"Beta measures only <b>systematic</b> (market) risk, not total risk. A high-beta stock isn't 'bad' &mdash; just more market-sensitive." }
 });
 </script>
 <script>boot();</script>
