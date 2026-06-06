@@ -5325,6 +5325,311 @@ enh({
   trap:"Other biases: anchoring, herding, overconfidence, recency. They cause investors to buy high and sell low." }
 });
 </script>
+<script>
+/* ====================  WAVE 11: LAWS — persons, federal acts, USA/registration  ==================== */
+enh({
+"investment-adviser":{
+  examples:[{ title:"Does the BD become an IA?", scenario:"A broker-dealer starts charging clients a 1% asset-based fee for ongoing advice.",
+    result:"That 'special compensation' breaks the BD exclusion &mdash; the firm must now register as an <b>investment adviser</b> and owes a fiduciary duty." }],
+  memory:"ABC test: Advice + Business + Compensation about securities.",
+  trap:"IAs owe a FIDUCIARY (best-interest) duty. A BD charging asset-based/wrap fees for advice gets pulled into IA registration." },
+"broker-dealer":{
+  examples:[{ title:"Agent or principal?", scenario:"A firm buys stock from its own inventory to fill your order, then on the next trade simply routes your order to the market.",
+    result:"Acting from inventory it's a <b>dealer (principal)</b>; routing your order it's a <b>broker (agent)</b>. Either way it owes retail customers Reg BI." }],
+  memory:"Firm executing trades (broker = agent; dealer = principal).",
+  trap:"A BD owes Reg BI best-interest (not technically 'fiduciary'). Special advice fees can force IA registration." },
+"agent":{
+  examples:[{ title:"One customer is enough", scenario:"A rep with no office in a state takes on a single retail customer who lives there.",
+    result:"The agent must register in that state &mdash; there's NO 5-client de minimis for agents (unlike IAs)." }],
+  memory:"The individual rep of a BD; always a natural person.",
+  trap:"No de minimis for agents/BDs: a single retail customer in a state triggers registration there." },
+"iar":{
+  examples:[{ title:"Where must the IAR register?", scenario:"An IAR works for a federal-covered (SEC) adviser and advises clients in five states but has an office in only one.",
+    result:"She registers only where she has a <b>place of business</b> &mdash; that one state &mdash; for a federal-covered adviser." }],
+  memory:"The individual who advises on behalf of an IA firm.",
+  trap:"Federal-covered IA's IAR registers only in states where it has a place of business; state-IA's IAR registers where it serves clients." },
+"fiduciary-duty":{
+  examples:[{ title:"Disclose the conflict", scenario:"An adviser earns extra commission on a product it's about to recommend.",
+    result:"Fiduciary duty requires putting the client first and <b>disclosing the conflict</b> in writing &mdash; not quietly profiting from it." }],
+  memory:"Client's interest first; full disclosure; no hidden conflicts.",
+  trap:"IAs are fiduciaries under the Advisers Act. Section 206 anti-fraud applies to ALL advisers &mdash; even unregistered or excluded ones." },
+"howey-test":{
+  examples:[{ title:"Is the token a security?", scenario:"People invest money in a crypto project expecting profits from the founders' work.",
+    result:"All four Howey prongs are met (money + common enterprise + profit + others' efforts) &mdash; so it's an <b>investment contract</b> (a security)." }],
+  memory:"Money + common enterprise + profit + others' efforts = a security.",
+  trap:"All four prongs must be met. It's the test that decides whether ICOs/tokens are regulated securities." },
+"custody-rule":{
+  examples:[{ title:"Fee deduction = custody?", scenario:"An adviser deducts its quarterly fee directly from client accounts.",
+    result:"That authority can count as <b>custody</b>, triggering safeguards: a qualified custodian, quarterly statements, and (often) a surprise audit." }],
+  memory:"Holding or being able to access client assets triggers safeguards.",
+  trap:"A state IA with custody needs $35,000 net worth. A qualified custodian must send statements directly to clients." },
+"soft-dollars":{
+  examples:[{ title:"Inside the safe harbor?", scenario:"An adviser uses client commissions to buy research reports, then tries to also pay for a vacation.",
+    result:"Research is inside the Section 28(e) safe harbor; <b>travel is NOT</b> &mdash; that must be paid with hard dollars." }],
+  memory:"Client commissions paying for research/brokerage (28(e) safe harbor).",
+  trap:"Research/brokerage YES; travel, rent, salaries NO. Best execution is a separate duty; disclose even within the safe harbor." },
+"federal-covered":{
+  examples:[{ title:"What can the state do?", scenario:"A mutual fund (a federal-covered security) is sold to residents of a state.",
+    result:"The state can only require a <b>notice filing</b> and keep anti-fraud authority &mdash; it can't impose its own registration (NSMIA preemption)." }],
+  memory:"SEC-level: exchange-listed, mutual funds, Rule 506, big advisers.",
+  trap:"States get notice filing + anti-fraud over federal-covered securities &mdash; nothing more." },
+"qualified-client":{
+  examples:[{ title:"Who can be charged a performance fee?", scenario:"An adviser wants to charge a 20% incentive fee.",
+    result:"Only a <b>qualified client</b> &mdash; $1.1M managed by the adviser or $2.2M net worth &mdash; may be charged a performance fee." }],
+  memory:"Performance fees OK: $1.1M AUM or $2.2M net worth.",
+  trap:"Performance fees are generally banned to protect smaller investors; qualified clients are the exception." },
+"qualified-purchaser":{
+  examples:[{ title:"The higher bar", scenario:"A fund wants unlimited investors without 1940-Act registration under 3(c)(7).",
+    result:"It must sell only to <b>qualified purchasers</b> ($5M+ in investments) &mdash; a higher bar than accredited investor, but with no 100-investor cap." }],
+  memory:"$5M+ in investments; unlocks 3(c)(7) funds.",
+  trap:"Qualified purchaser (wealth) is a higher standard than accredited investor; 3(c)(7) funds have no investor-count limit." },
+"securities-act-1933":{
+  examples:[{ title:"Selling something new", scenario:"A company is doing its IPO.",
+    result:"The <b>1933 Act</b> governs it &mdash; register with the SEC and deliver a prospectus, unless an exemption (Reg D, Reg A, intrastate) applies." }],
+  memory:"Primary market: registration + prospectus for NEW issues.",
+  trap:"The 'paper act' covers issuance. During the cooling-off period you may circulate a red herring but make NO sales." },
+"securities-exchange-act-1934":{
+  examples:[{ title:"After it's issued", scenario:"Investors trade an already-public stock on an exchange.",
+    result:"The <b>1934 Act</b> governs the secondary market &mdash; it created the SEC and regulates exchanges, BDs, reporting, and insider trading." }],
+  memory:"Secondary market; created the SEC.",
+  trap:"1933 = issuance (primary); 1934 = trading (secondary). The 1934 Act is the insider-trading (10b-5) home." },
+"investment-advisers-act":{
+  examples:[{ title:"The adviser rulebook", scenario:"An adviser commits fraud but isn't registered.",
+    result:"Section 206 of the <b>Advisers Act</b> still reaches it &mdash; the anti-fraud provisions apply to ALL advisers, registered or not." }],
+  memory:"Defines and regulates IAs; the fiduciary + anti-fraud law.",
+  trap:"Section 206 applies to every adviser, including exempt/excluded ones &mdash; you can't escape anti-fraud by not registering." },
+"investment-company-act":{
+  examples:[{ title:"Fund rules", scenario:"A mutual fund wants to call itself 'diversified.'",
+    result:"Under the <b>1940 Act's 75/5/10 test</b> it must meet diversification limits. The Act also sets the 7-day redemption rule and 12b-1 plans." }],
+  memory:"Regulates mutual funds, closed-end funds, and UITs.",
+  trap:"Hedge funds escape it via 3(c)(1) (&le;100 accredited) or 3(c)(7) (qualified purchasers). Diversified = 75/5/10." },
+"trust-indenture-act":{
+  examples:[{ title:"Protecting bondholders", scenario:"A company issues $200 million of bonds to the public.",
+    result:"Over the $50M threshold, the <b>1939 Act</b> requires a qualified trustee and an indenture protecting bondholders. (Gov't/muni bonds are exempt.)" }],
+  memory:"Public corporate bonds over $50M need a trustee + indenture.",
+  trap:"Threshold is >$50 million. Government and municipal bonds are exempt from the Trust Indenture Act." },
+"uniform-securities-act":{
+  examples:[{ title:"State-level rules", scenario:"A state wants to regulate advisers and prosecute local securities fraud.",
+    result:"It adopts its version of the <b>Uniform Securities Act</b> ('blue-sky' law), which empowers the state Administrator." }],
+  memory:"Model STATE law; 'blue sky'; the Administrator's powers.",
+  trap:"Each state adapts the USA. NSMIA later split authority between the states and the SEC." },
+"nsmia":{
+  examples:[{ title:"Dividing the turf", scenario:"Congress wants to stop duplicate state and federal regulation of big advisers and listed stocks.",
+    result:"<b>NSMIA (1996)</b> created 'federal covered' status &mdash; preempting state registration and setting the IA AUM dividing line." }],
+  memory:"1996: split turf &mdash; big advisers / listed securities go federal.",
+  trap:"NSMIA preempts state registration of federal-covered securities (states keep notice filing + anti-fraud)." },
+"dodd-frank":{
+  examples:[{ title:"State or SEC?", scenario:"An adviser's assets under management grow from $80M to $120M.",
+    result:"Under <b>Dodd-Frank</b> it moves from state to SEC registration (mandatory at $110M). Below $100M it's generally state-regulated." }],
+  memory:"2010: <$100M state, $100M+ SEC (mandatory at $110M).",
+  trap:"Created the Exempt Reporting Adviser. A mid-size adviser drops back to state once AUM falls below $90M." },
+"sarbanes-oxley":{
+  examples:[{ title:"After the scandals", scenario:"Following Enron, lawmakers want honest corporate financials.",
+    result:"<b>Sarbanes-Oxley (2002)</b> created the PCAOB to oversee auditors and made CEOs/CFOs personally certify the financial statements." }],
+  memory:"2002: PCAOB + CEO/CFO certify the financials.",
+  trap:"SOX added internal-control assessments and whistleblower protections after Enron/WorldCom." },
+"gramm-leach-bliley":{
+  examples:[{ title:"One-stop finance + privacy", scenario:"A bank wants to also offer brokerage and insurance, and must protect customer data.",
+    result:"<b>Gramm-Leach-Bliley (1999)</b> allowed those affiliations and created the financial-privacy rules behind Regulation S-P." }],
+  memory:"1999: banks/brokers/insurers can combine; created privacy rules.",
+  trap:"GLBA is the basis for Reg S-P privacy notices and the opt-out for non-affiliate data sharing." },
+"exempt-security":{
+  examples:[{ title:"Exempt by nature", scenario:"A state issues municipal bonds.",
+    result:"Munis are <b>exempt securities</b> (exempt by what they are, alongside U.S. gov't and bank securities) &mdash; but anti-fraud rules still apply." }],
+  memory:"Exempt by WHAT it is: gov't, muni, bank securities.",
+  trap:"Exempt from registration does NOT mean exempt from anti-fraud &mdash; fraud rules always apply." },
+"exempt-transaction":{
+  examples:[{ title:"Exempt by how it's done", scenario:"A customer calls in, entirely on their own, to buy a stock the agent never mentioned.",
+    result:"That <b>unsolicited</b> (customer-initiated) order is an exempt transaction &mdash; exempt by the manner of sale, regardless of the security." }],
+  memory:"Exempt by HOW it's done: unsolicited, institutional, private placement.",
+  trap:"The unsolicited order is the most-tested exempt transaction &mdash; it must be documented as customer-initiated." },
+"de-minimis":{
+  examples:[{ title:"IA gets a pass, BD doesn't", scenario:"With no in-state office, an IA has 4 retail clients in a state; a BD has 1 retail customer there.",
+    result:"The IA is exempt (&le;5 retail + no office); the <b>BD must register</b> &mdash; there's no de minimis for broker-dealers." }],
+  memory:"IA: &le;5 retail clients + no office = exempt. BDs get NONE.",
+  trap:"The de minimis exemption is IA/IAR-only. A single retail customer triggers BD/agent registration." },
+"administrator":{
+  examples:[{ title:"What can't they do?", scenario:"A state Administrator wants to immediately stop a fraudulent offering with a court injunction.",
+    result:"The Administrator can issue a cease-and-desist order but <b>cannot issue an injunction</b> &mdash; that requires going to court." }],
+  memory:"State securities cop: rules, subpoenas, C&D orders, revocations.",
+  trap:"The Administrator CANNOT issue injunctions (court only) and retains jurisdiction for 1 year after an IA withdrawal." },
+"registration-methods":{
+  examples:[{ title:"Registering an offering in a state", scenario:"A company is registering with the SEC and wants its state registration to go effective at the same time.",
+    result:"It uses registration by <b>coordination</b> (simultaneous with the federal filing). Qualification is a standalone full state review." }],
+  memory:"Coordination (with SEC), Qualification (full state), Notification.",
+  trap:"Coordination = effective with the federal registration; qualification = the longest, standalone state-merit route." },
+"reg-a":{
+  examples:[{ title:"A mini-IPO", scenario:"A small company wants to raise $50 million from the public without a full registration.",
+    result:"<b>Regulation A Tier 2</b> (up to $75M) fits &mdash; lighter disclosure than an S-1, and Tier 2 preempts state registration." }],
+  memory:"Mini-IPO: Tier 1 &le;$20M, Tier 2 &le;$75M.",
+  trap:"Tier 2 preempts state registration; Tier 1 does not. Both are lighter than a full registered offering." },
+"regulation-s":{
+  examples:[{ title:"Selling abroad", scenario:"A U.S. company sells securities only to investors located outside the United States.",
+    result:"<b>Regulation S</b> provides a safe harbor &mdash; genuine offshore transactions to non-U.S. persons need no SEC registration." }],
+  memory:"Safe harbor for OFFSHORE sales to non-U.S. persons.",
+  trap:"Reg S is the international counterpart to the domestic private-placement exemptions." },
+"rule-147":{
+  examples:[{ title:"Staying in-state", scenario:"An in-state business sells stock only to residents of its own state.",
+    result:"<b>Rule 147</b> exempts it from FEDERAL registration (state blue-sky law still applies). Resale to out-of-staters is restricted for a period." }],
+  memory:"Intrastate: in-state issuer sells only to in-state residents.",
+  trap:"Rule 147 exempts only federal registration &mdash; the state's own rules still apply, and resales are limited." },
+"regulation-crowdfunding":{
+  examples:[{ title:"Raising from the crowd", scenario:"A startup raises small amounts from many ordinary investors through an online portal.",
+    result:"<b>Regulation Crowdfunding</b> permits it &mdash; via a registered funding portal, with per-investor caps tied to income and net worth." }],
+  memory:"Small online raises from the public via funding portals.",
+  trap:"Reg CF uses registered portals and limits how much non-wealthy investors can put in." },
+"blue-sky-laws":{
+  examples:[{ title:"Where the name comes from", scenario:"A state prosecutes a promoter selling worthless speculative ventures.",
+    result:"State securities laws &mdash; <b>blue-sky laws</b> &mdash; cover this, named for schemes backed by nothing but 'so many feet of blue sky.'" }],
+  memory:"Nickname for state securities laws (the Uniform Securities Act).",
+  trap:"Blue-sky = STATE law (the USA). Don't confuse it with the federal SEC regime." },
+"statute-of-limitations":{
+  examples:[{ title:"How long to sue?", scenario:"An investor discovers a violation four years after the sale (1956 USA).",
+    result:"Civil SOL is the SOONER of <b>3 years from sale or 2 years from discovery</b> &mdash; so the claim is likely time-barred." }],
+  memory:"Civil (1956 USA): 3 yrs from sale OR 2 from discovery, whichever sooner.",
+  trap:"Criminal is '5-5-3': 5-year SOL, $5,000 fine, 3 years prison. Civil liability survives the death of either party." }
+});
+</script>
+<script>
+/* ====================  WAVE 12: LAWS — conduct, ethics, AML, market mechanics (FINAL)  ==================== */
+enh({
+"brochure-delivery":{
+  examples:[{ title:"State vs federal timing", scenario:"A state-registered adviser signs a new client.",
+    result:"It must deliver the brochure <b>48 hours before</b> the contract, OR at signing with a <b>5-business-day</b> right to rescind. A federal adviser just delivers before/at signing." }],
+  memory:"State: 48 hours before OR a 5-day rescission right.",
+  trap:"Federal advisers have NO 48-hour/5-day rule. Annual brochure delivery is within 120 days of fiscal year-end." },
+"reg-bi":{
+  examples:[{ title:"The four obligations", scenario:"A broker-dealer recommends a product to a retail customer.",
+    result:"<b>Reg BI</b> requires Disclosure, Care, Conflict-of-interest, and Compliance &mdash; a best-interest standard, though BDs aren't technically 'fiduciaries.'" }],
+  memory:"BD best-interest standard: Disclosure, Care, Conflict, Compliance.",
+  trap:"Effective 6/30/2020. Reg BI applies to BDs' retail recommendations &mdash; it does NOT make them fiduciaries, and doesn't apply to IAs." },
+"marketing-rule":{
+  examples:[{ title:"Can advisers use testimonials now?", scenario:"An adviser wants a happy client to give a video testimonial.",
+    result:"The 2022 <b>Marketing Rule</b> allows it &mdash; with clear disclosures (paid? client? conflicts?). Promoters paid over $1,000/12 months need a written agreement." }],
+  memory:"2022 rule; testimonials/endorsements allowed WITH disclosure.",
+  trap:"Performance must be fair and balanced (net of fees). It replaced the old advertising and cash-solicitation rules." },
+"pay-to-play":{
+  examples:[{ title:"A donation with consequences", scenario:"An adviser's executive donates to a mayor who can influence pension-adviser selection.",
+    result:"The firm can't take compensation from that government client for <b>2 years</b>. De minimis: $350 if the donor can vote for the official, $150 if not." }],
+  memory:"Contribution &rarr; 2-year ban on paid government advisory work.",
+  trap:"The de minimis amounts ($350 voter / $150 non-voter) are per official, per election &mdash; for natural persons only." },
+"code-of-ethics":{
+  examples:[{ title:"Watching employee trades", scenario:"An adviser's analyst with access to recommendations wants to trade personally.",
+    result:"The <b>Code of Ethics</b> makes 'access persons' report holdings (initial + annual) and quarterly transactions, and pre-clear IPOs and private placements." }],
+  memory:"Written ethics policy; access persons report personal trades.",
+  trap:"Access persons file initial + annual holdings and quarterly transaction reports; IPOs and limited offerings need pre-clearance." },
+"aml":{
+  examples:[{ title:"Stopping dirty money", scenario:"A firm builds its anti-money-laundering program.",
+    result:"It needs written policies, a compliance officer, training, independent testing, and a Customer Identification Program &mdash; plus OFAC screening, CTRs, and SARs." }],
+  memory:"Stop laundering: CIP, due diligence, training, independent testing.",
+  trap:"Built on the Bank Secrecy Act + USA Patriot Act. Screen customers against the OFAC sanctions (SDN) list." },
+"ctr":{
+  examples:[{ title:"Big cash", scenario:"A customer brings in $12,000 of cash in one day.",
+    result:"The firm files a <b>Currency Transaction Report</b> within 15 days &mdash; automatic, no suspicion required, for cash over $10,000." }],
+  memory:"Cash over $10,000 &rarr; file a CTR within 15 days.",
+  trap:"CTRs are mechanical (no suspicion needed). 'Structuring' deposits to dodge the $10k threshold is itself a federal crime." },
+"sar":{
+  examples:[{ title:"Keep it secret", scenario:"A firm spots suspicious $6,000 transfers and files a Suspicious Activity Report.",
+    result:"It must NOT tell the customer &mdash; tipping off about a <b>SAR is a felony</b>. SARs are filed at $5,000+ within 30 days." }],
+  memory:"Suspicious activity at $5,000+ &rarr; file a SAR within 30 days.",
+  trap:"SARs are confidential &mdash; informing the customer a SAR was filed is a felony." },
+"insider-trading":{
+  examples:[{ title:"Tipper and tippee", scenario:"An executive tells a friend about an unannounced merger, and the friend trades on it.",
+    result:"Both can be liable &mdash; <b>insider trading</b>. Penalties reach 3&times; the profit (civil) and up to $5M / 20 years (criminal)." }],
+  memory:"Trading on material non-public information (or tipping).",
+  trap:"Both tipper and tippee can be liable. Rule 10b5-1 preset plans give insiders an affirmative defense." },
+"rule-10b5":{
+  examples:[{ title:"The anti-fraud hammer", scenario:"Regulators pursue someone who traded on stolen confidential information.",
+    result:"They use <b>Rule 10b-5</b> &mdash; the broad anti-fraud rule under the 1934 Act and the main basis for insider-trading cases." }],
+  memory:"Broad anti-fraud rule under the 1934 Act.",
+  trap:"10b-5 covers fraud and material misstatements 'in connection with' buying/selling securities &mdash; the insider-trading hook." },
+"prohibited-practices":{
+  examples:[{ title:"The classic no-nos", scenario:"A rep trades a client's account heavily just to generate commissions.",
+    result:"That's <b>churning</b> &mdash; prohibited, like front-running, selling away, and commingling. Note: IARs may NEVER share in a client's account." }],
+  memory:"Churning, front-running, selling away, commingling.",
+  trap:"Agents may share in accounts (proportionate + approved); IARs may NEVER. Guaranteeing against loss is always prohibited." },
+"discretionary-account":{
+  examples:[{ title:"Trading without asking", scenario:"An adviser starts managing a new account before the signed discretionary authorization arrives.",
+    result:"An <b>IA</b> may rely on oral authorization for up to 10 days. An <b>agent</b> needs WRITTEN authorization BEFORE the first discretionary trade." }],
+  memory:"Trade without asking each time (needs authorization).",
+  trap:"IA: 10 days oral OK while awaiting written. Agent (BD): written required BEFORE the first discretionary trade." },
+"books-and-records":{
+  examples:[{ title:"How long to keep files?", scenario:"An adviser wonders how long to retain communications and advertisements.",
+    result:"<b>Five years</b> total, with the first two readily accessible at the office. (Don't confuse with the 120-day brochure and 90-day ADV deadlines.)" }],
+  memory:"Keep 5 years; first 2 easily accessible.",
+  trap:"5 years / 2 accessible. Brochure delivery = 120 days of FYE; ADV annual updating amendment = 90 days of FYE." },
+"investment-counsel":{
+  examples:[{ title:"Can it use the title?", scenario:"A firm that mostly sells financial plans wants to call itself 'investment counsel.'",
+    result:"Only if BOTH tests are met: its <b>principal business</b> is investment advice AND a <b>substantial part</b> is ongoing supervisory (portfolio) services." }],
+  memory:"Needs BOTH: principal business + substantial supervisory services.",
+  trap:"Meeting only one test isn't enough to use the 'investment counsel' title." },
+"reg-s-p":{
+  examples:[{ title:"Sharing client data", scenario:"An adviser wants to share client information with an unaffiliated marketing company.",
+    result:"Under <b>Reg S-P</b> it must give an opt-out first. It also requires initial and annual privacy notices and a written safeguards program." }],
+  memory:"Privacy: initial + annual notice, opt-out, safeguards.",
+  trap:"The opt-out applies before sharing nonpublic personal info with NON-affiliated third parties." },
+"agency-cross":{
+  examples:[{ title:"Adviser on the other side", scenario:"An adviser sells a security from its own account to a client.",
+    result:"That <b>principal transaction</b> needs written disclosure and consent BEFORE completion, per trade. An agency cross (brokering both sides) needs prospective consent + an annual statement." }],
+  memory:"Principal/agency-cross trades need disclosure + consent.",
+  trap:"Principal: per-trade consent before completion. Agency cross: prospective consent OK, plus per-trade disclosure and an annual statement." },
+"reporting-forms":{
+  examples:[{ title:"A material event", scenario:"A public company's CEO suddenly resigns.",
+    result:"It files a <b>Form 8-K within 4 business days</b>. Annual = 10-K (audited); quarterly = 10-Q; a 5%+ ownership stake = Schedule 13D." }],
+  memory:"10-K annual, 10-Q quarterly, 8-K events, 13D for 5%+.",
+  trap:"8-K is due within 4 business days of a material event. 13D/13G are filed when crossing 5% beneficial ownership." },
+"section-16":{
+  examples:[{ title:"Short-swing profit", scenario:"A director buys company stock and sells it for a profit five months later.",
+    result:"Under <b>Section 16(b)</b> that short-swing profit (buy + sell within 6 months) must be returned to the company." }],
+  memory:"Insiders report trades; short-swing profits returned.",
+  trap:"Applies to officers, directors, and 10%+ owners. Profit on a buy+sell within 6 months goes back to the company." },
+"tcpa":{
+  examples:[{ title:"Cold-calling hours", scenario:"A rep wants to make prospecting calls at 7:30 a.m.",
+    result:"Too early &mdash; the <b>TCPA</b> limits calls to 8 a.m.&ndash;9 p.m. (the called party's time), and firms must honor Do-Not-Call lists." }],
+  memory:"Cold-call only 8am-9pm; honor Do-Not-Call.",
+  trap:"Auto-dialed/prerecorded calls to mobiles need express written consent. CAN-SPAM sets parallel email rules." },
+"senior-protection":{
+  examples:[{ title:"Suspected exploitation", scenario:"A firm believes an elderly client is being scammed into a large withdrawal.",
+    result:"The NASAA <b>Senior Model Act</b> lets it delay the disbursement and notify a trusted contact, with immunity for good-faith reports." }],
+  memory:"Delay disbursements + notify a trusted contact on suspected exploitation.",
+  trap:"The act grants immunity for good-faith reports of suspected exploitation of vulnerable adults. Many firms collect a 'trusted contact' at account opening." },
+"finra-gift-limit":{
+  examples:[{ title:"How big a gift?", scenario:"A rep wants to send a referral source a $150 gift basket.",
+    result:"Too much &mdash; the business-gift limit is <b>$100 per person per year</b>. Reps must also disclose outside business activities." }],
+  memory:"$100 per person per year business-gift cap.",
+  trap:"The $100 cap helps prevent conflicts; undisclosed outside activities risk 'selling away.'" },
+"best-execution":{
+  examples:[{ title:"Best deal for the client", scenario:"An adviser routes trades to a broker that gives it research, even though execution is mediocre.",
+    result:"That violates <b>best execution</b> &mdash; the duty to seek the best overall terms for clients is independent of any soft-dollar benefit." }],
+  memory:"Get clients the best overall deal on trades.",
+  trap:"Best execution is separate from soft dollars &mdash; research credits never excuse poor execution." },
+"wrap-fee":{
+  examples:[{ title:"One bundled fee", scenario:"A program charges a single 1.5% fee covering advice, trading, and custody.",
+    result:"That's a <b>wrap-fee</b> account &mdash; it needs a special wrap-fee brochure (ADV Appendix 1) and can make a BD an investment adviser (special compensation)." }],
+  memory:"One flat fee bundles advice + trading + custody.",
+  trap:"Wrap programs require a dedicated wrap-fee brochure; the bundled advice fee is 'special compensation' for a BD." },
+"hedge-clause":{
+  examples:[{ title:"Trying to waive liability", scenario:"An advisory contract says the adviser isn't liable for any losses whatsoever.",
+    result:"That <b>hedge clause</b> is generally prohibited &mdash; you can't contract away fiduciary duty or mislead clients about their legal rights." }],
+  memory:"Clause waiving adviser liability &mdash; generally PROHIBITED.",
+  trap:"Hedge clauses can mislead clients into thinking they waived antifraud rights &mdash; regulators disallow them." },
+"net-capital":{
+  examples:[{ title:"A solvency cushion", scenario:"A broker-dealer must stay financially sound enough to pay what it owes customers.",
+    result:"The <b>net capital rule</b> requires a minimum liquid cushion &mdash; protecting customers from the firm's insolvency, alongside the customer-protection rule and SIPC." }],
+  memory:"BDs keep a minimum liquid cushion.",
+  trap:"Net capital + the customer-protection rule + SIPC together shield customers if a broker-dealer fails." },
+"customer-protection":{
+  examples:[{ title:"Keeping it separate", scenario:"A broker-dealer holds customer cash and fully-paid securities.",
+    result:"Rule 15c3-3 requires it to <b>segregate</b> those from firm assets &mdash; so customer property is safe even if the firm goes under." }],
+  memory:"Segregate customer cash/securities from the firm's own.",
+  trap:"The customer-protection rule keeps customer property safe in a failure; SIPC backstops any shortfall." },
+"markup-policy":{
+  examples:[{ title:"Is the charge fair?", scenario:"A dealer adds a markup when selling a bond from inventory to a customer.",
+    result:"FINRA's <b>5% policy</b> says markups, markdowns, and commissions should be fair and reasonable &mdash; a guideline (not a hard cap) that must be disclosed." }],
+  memory:"FINRA 5% policy: charges should be fair and reasonable.",
+  trap:"The 5% policy is a GUIDELINE, not a ceiling &mdash; it weighs price, security type, and effort, and excessive charges are prohibited." }
+});
+</script>
 <script>boot();</script>
 </body>
 </html>
