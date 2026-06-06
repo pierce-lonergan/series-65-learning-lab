@@ -3896,6 +3896,280 @@ enh({
 "beta":{ memory:"Beta 1 = market; &gt;1 = jumpier; &lt;1 = calmer. Portfolio beta is a weighted average.", trap:"Beta measures only <b>systematic</b> (market) risk, not total risk. A high-beta stock isn't 'bad' &mdash; just more market-sensitive." }
 });
 </script>
+<script>
+/* ====================  ENHANCEMENT WAVE 2: QUANTITATIVE (bonds, ratios, options, tax)  ==================== */
+enh({
+
+"current-yield":{
+  equation:{ latex:"CY = \\frac{C}{P}", where:[
+    {s:"CY", d:"current yield — the income return at today's price"},
+    {s:"C", d:"the annual coupon in dollars (coupon rate &times; par)"},
+    {s:"P", d:"the bond's current market price"} ]},
+  examples:[
+    { title:"A premium bond", scenario:"A bond pays a 6% coupon ($60/year on $1,000 par) and currently trades at $1,200.",
+      given:[{s:"C",d:"$60"},{s:"P",d:"$1,200"}],
+      steps:["CY = \\frac{60}{1200} = 0.05 = 5.0\\%"],
+      result:"<b>Current yield = 5.0%</b> — below the 6% coupon, because you paid a premium.",
+      chart:{ type:"bars", unit:"%", title:"Premium: current yield dips below coupon", data:[{label:"Coupon (nominal)",value:6,color:"#ffcf5c"},{label:"Current yield",value:5,color:"#5b9dff"}] } },
+    { title:"The same bond at a discount", scenario:"Now the bond trades at $800.",
+      given:[{s:"P",d:"$800"}],
+      steps:["CY = \\frac{60}{800} = 0.075 = 7.5\\%"],
+      result:"<b>Current yield = 7.5%</b> — above the coupon, because you paid a discount." } ],
+  memory:"Current yield = coupon dollars &divide; today's price.",
+  trap:"Current yield ignores the gain or loss back to par at maturity &mdash; that is what YTM captures. Premium &rarr; CY below coupon; discount &rarr; CY above coupon." },
+
+"yield-hierarchy":{
+  equation:{ latex:"\\text{Premium: } NY > CY > YTM > YTC", where:[
+    {s:"NY", d:"nominal yield (the fixed coupon rate)"},
+    {s:"CY", d:"current yield (coupon &divide; price)"},
+    {s:"YTM", d:"yield to maturity (total return if held to maturity)"},
+    {s:"YTC", d:"yield to call (total return if called early)"} ]},
+  examples:[
+    { title:"Order the yields for a discount bond", scenario:"A bond bought below par will gain value up to par at maturity, which lifts its total-return measures above its coupon.",
+      steps:["\\text{Discount: } NY < CY < YTM < YTC"],
+      result:"For a <b>discount</b> bond the order flips: Coupon &lt; Current &lt; YTM &lt; YTC. At par, all four are equal." } ],
+  memory:"&lsquo;Premium puts you DOWN to par&rsquo; &mdash; the yields descend (Coupon highest).",
+  trap:"Very easy to flip under time pressure. Lock it in: premium &rarr; Coupon is HIGHEST; discount &rarr; Coupon is LOWEST." },
+
+"convertible-bond":{
+  equation:{ latex:"CR = \\frac{Par}{CP} \\qquad CV = CR \\times P_{stock}", where:[
+    {s:"CR", d:"conversion ratio — shares you get per bond"},
+    {s:"Par", d:"the bond's par value (usually $1,000)"},
+    {s:"CP", d:"the conversion price set in the bond's terms"},
+    {s:"CV", d:"conversion value — what the shares are worth if you convert now"},
+    {s:"P_{stock}", d:"the current stock price"} ]},
+  examples:[
+    { title:"Shares per bond, and is it worth converting?", scenario:"A $1,000 bond is convertible at $50. The stock now trades at $60.",
+      given:[{s:"Par",d:"$1,000"},{s:"CP",d:"$50"},{s:"P_{stock}",d:"$60"}],
+      steps:["CR = \\frac{1000}{50} = 20 \\text{ shares}","CV = 20 \\times 60 = 1200"],
+      result:"Each bond converts to <b>20 shares worth $1,200</b>. If the bond trades below $1,200, converting (or arbitraging) is attractive.",
+      chart:{ type:"bars", unit:"$", title:"Convert vs. hold", data:[{label:"Conversion value",value:1200,color:"#46d39a"},{label:"Bond at par",value:1000,color:"#5b9dff"}] } } ],
+  memory:"Ratio = par &divide; conversion price; value = ratio &times; stock price.",
+  trap:"Compare conversion value to the bond's market price to decide. Convertibles <b>yield less</b> than comparable straight bonds &mdash; you pay for the equity upside." },
+
+"financial-ratios":{
+  equation:{ latex:"\\text{Current} = \\frac{CA}{CL} \\quad \\text{Quick} = \\frac{CA - Inv}{CL} \\quad ROE = \\frac{NI}{E}", where:[
+    {s:"CA", d:"current assets (cash, receivables, inventory)"},
+    {s:"CL", d:"current liabilities (bills due within a year)"},
+    {s:"Inv", d:"inventory (removed in the stricter quick ratio)"},
+    {s:"NI", d:"net income"},
+    {s:"E", d:"shareholders' equity"} ]},
+  examples:[
+    { title:"Liquidity check", scenario:"A firm has $200,000 current assets (of which $60,000 is inventory) and $100,000 current liabilities.",
+      given:[{s:"CA",d:"$200,000"},{s:"Inv",d:"$60,000"},{s:"CL",d:"$100,000"}],
+      steps:["\\text{Current} = \\frac{200000}{100000} = 2.0","\\text{Quick} = \\frac{200000 - 60000}{100000} = 1.4"],
+      result:"<b>Current ratio 2.0 (strong), quick ratio 1.4 (healthy).</b> It can cover short-term bills even without selling inventory.",
+      chart:{ type:"bars", title:"Liquidity ratios", data:[{label:"Current ratio",value:2.0,color:"#46d39a"},{label:"Quick ratio",value:1.4,color:"#5b9dff"}] } },
+    { title:"Profitability (ROE)", scenario:"Net income is $50,000 on shareholders' equity of $250,000.",
+      steps:["ROE = \\frac{50000}{250000} = 0.20 = 20\\%"],
+      result:"<b>ROE = 20%</b> — the company earns 20 cents of profit per dollar of equity." } ],
+  memory:"Liquidity = assets &divide; what's due soon; ROE = profit &divide; what owners put in.",
+  trap:"The <b>quick</b> ratio removes inventory (slowest to turn into cash). Current ratio &ge; 1 is adequate, &ge; 2 strong." },
+
+"eps":{
+  equation:{ latex:"EPS = \\frac{NI - PD}{S}", where:[
+    {s:"EPS", d:"earnings per (common) share"},
+    {s:"NI", d:"net income"},
+    {s:"PD", d:"preferred dividends (paid before common)"},
+    {s:"S", d:"weighted-average common shares outstanding"} ]},
+  examples:[
+    { title:"Earnings behind each share", scenario:"Net income is $10,000,000, preferred dividends are $1,000,000, and there are 4,000,000 common shares.",
+      given:[{s:"NI",d:"$10,000,000"},{s:"PD",d:"$1,000,000"},{s:"S",d:"4,000,000"}],
+      steps:["EPS = \\frac{10{,}000{,}000 - 1{,}000{,}000}{4{,}000{,}000} = \\frac{9{,}000{,}000}{4{,}000{,}000} = 2.25"],
+      result:"<b>EPS = $2.25.</b> This is the figure the P/E ratio divides into the share price." } ],
+  memory:"Take out preferred dividends first, then divide by common shares.",
+  trap:"Always subtract <b>preferred</b> dividends from net income. <b>Diluted</b> EPS (assuming options/convertibles convert) is always &le; basic EPS." },
+
+"valuation-ratios":{
+  equation:{ latex:"P/E = \\frac{Price}{EPS} \\qquad PEG = \\frac{P/E}{g}", where:[
+    {s:"P/E", d:"price-to-earnings — price paid per dollar of earnings"},
+    {s:"Price", d:"the current share price"},
+    {s:"EPS", d:"earnings per share"},
+    {s:"g", d:"the earnings growth rate (in percent)"} ]},
+  examples:[
+    { title:"Is a high P/E expensive?", scenario:"A stock trades at $50 with EPS of $2.50 and is growing earnings 25% a year.",
+      given:[{s:"Price",d:"$50"},{s:"EPS",d:"$2.50"},{s:"g",d:"25"}],
+      steps:["P/E = \\frac{50}{2.50} = 20","PEG = \\frac{20}{25} = 0.8"],
+      result:"<b>P/E = 20, PEG = 0.8.</b> A PEG below 1 suggests the 20&times; multiple is reasonable given fast growth." } ],
+  memory:"P/E = price per $1 of earnings; PEG divides that by growth.",
+  trap:"A high P/E is not automatically &lsquo;expensive&rsquo; if growth is high &mdash; that's what PEG adjusts for. PEG &lt; 1 may signal undervaluation." },
+
+"cost-of-capital":{
+  equation:{ latex:"WACC = w_d\\,r_d\\,(1-t) + w_e\\,r_e", where:[
+    {s:"WACC", d:"weighted-average cost of capital (the hurdle rate)"},
+    {s:"w_d, w_e", d:"the weights of debt and equity in the capital structure"},
+    {s:"r_d", d:"the pre-tax cost of debt (interest rate)"},
+    {s:"t", d:"the tax rate (interest is tax-deductible, so debt is cheaper after tax)"},
+    {s:"r_e", d:"the cost of equity (often from CAPM)"} ]},
+  examples:[
+    { title:"Blending debt and equity", scenario:"A firm is 40% debt (6% interest), 60% equity (10% required), with a 25% tax rate.",
+      given:[{s:"w_d",d:"0.40"},{s:"r_d",d:"6%"},{s:"t",d:"0.25"},{s:"w_e",d:"0.60"},{s:"r_e",d:"10%"}],
+      steps:["WACC = 0.40\\times 6\\%\\times(1-0.25) + 0.60\\times 10\\%","WACC = 1.8\\% + 6.0\\% = 7.8\\%"],
+      result:"<b>WACC = 7.8%.</b> A project must earn more than 7.8% to add value.",
+      chart:{ type:"stack", unit:"%", title:"What makes up the 7.8%", segments:[{label:"after-tax debt",value:1.8,color:"#5b9dff"},{label:"equity",value:6.0,color:"#8b7cff"}] } } ],
+  memory:"Weight the after-tax cost of debt and the cost of equity, then add.",
+  trap:"Debt is multiplied by (1 &minus; tax rate) because interest is deductible &mdash; forgetting this overstates WACC. The result is the minimum acceptable return." },
+
+"nav":{
+  equation:{ latex:"NAV = \\frac{Assets - Liabilities}{Shares}", where:[
+    {s:"NAV", d:"net asset value per share"},
+    {s:"Assets", d:"total market value of everything the fund owns"},
+    {s:"Liabilities", d:"what the fund owes"},
+    {s:"Shares", d:"shares outstanding"} ]},
+  examples:[
+    { title:"A fund's per-share value", scenario:"A fund holds $50,000,000 in assets, owes $2,000,000, and has 4,000,000 shares.",
+      given:[{s:"Assets",d:"$50,000,000"},{s:"Liabilities",d:"$2,000,000"},{s:"Shares",d:"4,000,000"}],
+      steps:["NAV = \\frac{50{,}000{,}000 - 2{,}000{,}000}{4{,}000{,}000} = \\frac{48{,}000{,}000}{4{,}000{,}000} = 12.00"],
+      result:"<b>NAV = $12.00 per share.</b>" } ],
+  memory:"What the fund owns minus owes, per share.",
+  trap:"Mutual funds price NAV <b>once daily</b> (forward pricing). For a load fund the price you pay is POP = NAV &divide; (1 &minus; load)." },
+
+"correlation":{
+  equation:{ latex:"\\rho_{XY} = \\frac{Cov(X,Y)}{\\sigma_X\\,\\sigma_Y}, \\quad -1 \\le \\rho \\le +1", where:[
+    {s:"\\rho_{XY}", d:"the correlation coefficient between assets X and Y"},
+    {s:"Cov(X,Y)", d:"how the two assets move together"},
+    {s:"\\sigma_X, \\sigma_Y", d:"each asset's standard deviation"} ]},
+  examples:[
+    { title:"Why low correlation is the goal", scenario:"Compare combining two assets at different correlations.",
+      steps:["\\rho = +1 \\Rightarrow \\text{no diversification benefit}","\\rho = -1 \\Rightarrow \\text{maximum benefit (risks can fully offset)}"],
+      result:"Any &rho; below +1 reduces portfolio risk; the lower it goes, the bigger the benefit. Use the correlation slider in the graphic to feel it." } ],
+  graphic:"diversification",
+  memory:"Correlation runs &minus;1 to +1; the lower, the better for diversifying.",
+  trap:"&rho; = 0 means no <i>linear</i> relationship, not &lsquo;no relationship.&rsquo; Diversification helps whenever &rho; &lt; +1, and is maximized at &minus;1." },
+
+"standard-deviation":{
+  equation:{ latex:"\\sigma = \\sqrt{Var}, \\quad \\text{68% within } \\pm 1\\sigma", where:[
+    {s:"\\sigma", d:"standard deviation — total volatility, in the same units as returns"},
+    {s:"Var", d:"variance — the average squared deviation from the mean"} ]},
+  examples:[
+    { title:"Turning σ into a range of outcomes", scenario:"A fund averages an 8% return with a standard deviation of 12%.",
+      given:[{s:"mean",d:"8%"},{s:"\\sigma",d:"12%"}],
+      steps:["\\pm 1\\sigma: \\; 8\\% \\pm 12\\% \\Rightarrow (-4\\%,\\, +20\\%)"],
+      result:"About <b>68% of years</b> should land between &minus;4% and +20%; about 95% within &plusmn;2&sigma; (&minus;16% to +32%)." } ],
+  graphic:"normal-distribution",
+  memory:"Standard deviation = total volatility; &plusmn;1&sigma; &asymp; 68% of outcomes.",
+  trap:"Standard deviation is <b>total</b> risk (used in Sharpe). Beta is only <b>market</b> risk (used in Treynor). Don't swap them." },
+
+"diversification":{
+  equation:{ latex:"\\sigma_p^2 = w_1^2\\sigma_1^2 + w_2^2\\sigma_2^2 + 2\\,w_1 w_2\\,\\sigma_1\\sigma_2\\,\\rho", where:[
+    {s:"\\sigma_p^2", d:"the portfolio's variance (risk, squared)"},
+    {s:"w_1, w_2", d:"the weights of each asset"},
+    {s:"\\sigma_1, \\sigma_2", d:"each asset's standard deviation"},
+    {s:"\\rho", d:"the correlation between them — the lever that lowers risk"} ]},
+  examples:[
+    { title:"The covariance term is the free lunch", scenario:"When &rho; is below 1, the last term shrinks, pulling portfolio risk BELOW the weighted average of the two risks.",
+      steps:["\\text{if } \\rho = 1: \\; \\sigma_p = w_1\\sigma_1 + w_2\\sigma_2 \\text{ (no benefit)}","\\text{if } \\rho < 1: \\; \\sigma_p < w_1\\sigma_1 + w_2\\sigma_2"],
+      result:"That gap below the straight-line average <b>is</b> diversification. Slide the correlation in the graphic to watch the curve bow." } ],
+  graphic:"diversification",
+  memory:"Lower correlation shrinks the covariance term &mdash; that's the free lunch.",
+  trap:"Diversification erases only <b>non-systematic</b> (company-specific) risk. <b>Systematic</b> (market) risk stays no matter how many names you add." },
+
+"sortino":{
+  equation:{ latex:"Sortino = \\frac{R_p - R_f}{\\sigma_d}", where:[
+    {s:"R_p - R_f", d:"the portfolio's excess return over the risk-free rate"},
+    {s:"\\sigma_d", d:"downside deviation — volatility of NEGATIVE returns only"} ]},
+  examples:[
+    { title:"Penalizing only the bad volatility", scenario:"A portfolio earns 12%, the risk-free rate is 3%, and its downside deviation is 9%.",
+      given:[{s:"R_p",d:"12%"},{s:"R_f",d:"3%"},{s:"\\sigma_d",d:"9%"}],
+      steps:["Sortino = \\frac{12 - 3}{9} = 1.0"],
+      result:"<b>Sortino = 1.0.</b> It rewards return per unit of <i>harmful</i> volatility, ignoring upside swings." } ],
+  memory:"Sortino = Sharpe, but only DOWNSIDE risk in the denominator.",
+  trap:"Use Sortino when investors care only about losses. Because it ignores upside volatility, it is usually <i>higher</i> than the Sharpe ratio." },
+
+"information-ratio":{
+  equation:{ latex:"IR = \\frac{R_p - R_b}{TE}", where:[
+    {s:"R_p", d:"the portfolio's return"},
+    {s:"R_b", d:"the benchmark's return"},
+    {s:"R_p - R_b", d:"the active return (how much you beat the benchmark)"},
+    {s:"TE", d:"tracking error — the volatility of that active return"} ]},
+  examples:[
+    { title:"Consistency of beating the benchmark", scenario:"A manager returns 11% vs a 9% benchmark, with a tracking error of 4%.",
+      given:[{s:"R_p",d:"11%"},{s:"R_b",d:"9%"},{s:"TE",d:"4%"}],
+      steps:["IR = \\frac{11 - 9}{4} = 0.5"],
+      result:"<b>Information ratio = 0.5.</b> Higher means more reliable, repeatable outperformance for the risk taken vs the benchmark." } ],
+  memory:"Active return &divide; tracking error = how consistently you beat the benchmark.",
+  trap:"The information ratio measures excess return over a <b>benchmark</b> &mdash; not over the risk-free rate (that's Sharpe)." },
+
+"rmd":{
+  equation:{ latex:"RMD = \\frac{B_{prior}}{F_{life}}", where:[
+    {s:"RMD", d:"required minimum distribution for the year"},
+    {s:"B_{prior}", d:"the account balance on December 31 of the prior year"},
+    {s:"F_{life}", d:"the IRS Uniform Lifetime Table factor for your age"} ]},
+  examples:[
+    { title:"First RMD at 73", scenario:"An IRA was worth $500,000 at last year-end. The age-73 life-expectancy factor is about 26.5.",
+      given:[{s:"B_{prior}",d:"$500,000"},{s:"F_{life}",d:"26.5"}],
+      steps:["RMD = \\frac{500{,}000}{26.5} = 18{,}868"],
+      result:"<b>RMD ≈ $18,868</b> must be withdrawn (and taxed as ordinary income) this year." } ],
+  memory:"Last year's ending balance &divide; your IRS life-expectancy factor.",
+  trap:"RMDs begin at <b>73</b> (SECURE 2.0). <b>Roth IRAs have no lifetime RMD.</b> Missing one is a 25% penalty (10% if corrected promptly)." },
+
+"gift-estate-tax":{
+  equation:{ latex:"\\text{529 front-load} = 5 \\times \\text{annual exclusion}", where:[
+    {s:"\\text{annual exclusion}", d:"the amount you may gift each recipient each year gift-tax-free ($19,000 in 2025)"} ]},
+  examples:[
+    { title:"Tax-free giving, and supercharging a 529", scenario:"In 2025 the annual exclusion is $19,000 per recipient. A married couple can split gifts.",
+      given:[{s:"\\text{exclusion}",d:"$19,000"}],
+      steps:["\\text{couple, per recipient} = 2 \\times 19{,}000 = 38{,}000","\\text{529 front-load (single)} = 5 \\times 19{,}000 = 95{,}000"],
+      result:"A couple can give <b>$38,000</b> per person per year tax-free, or front-load a 529 with <b>$95,000</b> ($190,000 jointly) at once.",
+      chart:{ type:"bars", unit:"$", title:"Gift-tax-free amounts (2025)", data:[{label:"Single, annual",value:19000,color:"#5b9dff"},{label:"Couple, annual",value:38000,color:"#46d39a"},{label:"529 front-load (single)",value:95000,color:"#8b7cff"}] } } ],
+  memory:"Annual exclusion is per RECIPIENT per year; 5&times; it to front-load a 529.",
+  trap:"Gifts above the exclusion don't trigger tax immediately &mdash; they draw down your large <b>lifetime exemption</b>. Tax is only due once that's exhausted." },
+
+"niit":{
+  equation:{ latex:"NIIT = 3.8\\% \\times \\min\\big(NII,\\; MAGI - T\\big)", where:[
+    {s:"NII", d:"net investment income (interest, dividends, capital gains)"},
+    {s:"MAGI", d:"modified adjusted gross income"},
+    {s:"T", d:"the threshold ($200k single, $250k married filing jointly)"} ]},
+  examples:[
+    { title:"The surtax on a high earner", scenario:"A single filer has MAGI of $250,000 (threshold $200,000) and $40,000 of net investment income.",
+      given:[{s:"MAGI",d:"$250,000"},{s:"T",d:"$200,000"},{s:"NII",d:"$40,000"}],
+      steps:["\\min(40{,}000,\\; 250{,}000 - 200{,}000) = \\min(40{,}000, 50{,}000) = 40{,}000","NIIT = 0.038 \\times 40{,}000 = 1{,}520"],
+      result:"<b>NIIT = $1,520</b> — an extra 3.8% on top of regular and capital-gains taxes." } ],
+  memory:"3.8% on the LESSER of investment income or the amount over the threshold.",
+  trap:"Thresholds are $200k single / $250k MFJ. It stacks <b>on top of</b> ordinary and capital-gains rates &mdash; it is not instead of them." },
+
+"capital-gains-netting":{
+  equation:{ latex:"\\text{Deduct up to } \\$3{,}000 \\text{ of net loss; carry the rest forward}", where:[
+    {s:"\\$3{,}000", d:"the maximum net capital loss usable against ordinary income each year ($1,500 if married filing separately)"} ]},
+  examples:[
+    { title:"Using a big loss", scenario:"After netting short- and long-term results, you have a net capital loss of $8,000 this year.",
+      given:[{s:"\\text{net loss}",d:"$8,000"}],
+      steps:["\\text{This year: deduct } \\$3{,}000 \\text{ vs ordinary income}","\\text{Carry forward: } 8{,}000 - 3{,}000 = 5{,}000"],
+      result:"You deduct <b>$3,000</b> now and carry the remaining <b>$5,000</b> forward indefinitely to future years.",
+      chart:{ type:"stack", unit:"$", title:"$8,000 net loss", segments:[{label:"deduct now",value:3000,color:"#46d39a"},{label:"carry forward",value:5000,color:"#ffcf5c"}] } } ],
+  memory:"Net ST and LT; up to $3,000 of leftover loss offsets ordinary income; rest carries forward.",
+  trap:"The $3,000 cap is against <b>ordinary</b> income. When harvesting losses, watch the wash-sale rule (no rebuy within 30 days either side)." },
+
+"covered-call":{
+  equation:{ latex:"\\text{Max gain} = (Strike - Cost) + Prem \\quad BE = Cost - Prem", where:[
+    {s:"Cost", d:"the price you paid for the stock"},
+    {s:"Strike", d:"the strike of the call you sold"},
+    {s:"Prem", d:"the premium you received for the call"},
+    {s:"BE", d:"breakeven stock price"} ]},
+  examples:[
+    { title:"Income with a capped top", scenario:"You buy stock at $50 and sell a $55 call for $3.",
+      given:[{s:"Cost",d:"$50"},{s:"Strike",d:"$55"},{s:"Prem",d:"$3"}],
+      steps:["\\text{Max gain} = (55 - 50) + 3 = 8","BE = 50 - 3 = 47","\\text{Max loss} = 47 \\text{ (stock to zero)}"],
+      result:"<b>Max gain $8, breakeven $47, max loss $47.</b> The $3 premium cushions the downside but caps your upside at $55." } ],
+  memory:"Income now; upside capped at the strike + premium.",
+  trap:"A covered call <b>caps upside</b> at the strike. Best when mildly bullish and genuinely willing to sell at the strike." },
+
+"protective-put":{
+  equation:{ latex:"\\text{Max loss} = (Cost - Strike) + Prem \\quad BE = Cost + Prem", where:[
+    {s:"Cost", d:"the price you paid for the stock"},
+    {s:"Strike", d:"the strike of the put you bought (your floor)"},
+    {s:"Prem", d:"the premium you paid for the put"},
+    {s:"BE", d:"breakeven stock price"} ]},
+  examples:[
+    { title:"Buying downside insurance", scenario:"You own stock bought at $50 and buy a $48 put for $2.",
+      given:[{s:"Cost",d:"$50"},{s:"Strike",d:"$48"},{s:"Prem",d:"$2"}],
+      steps:["\\text{Max loss} = (50 - 48) + 2 = 4","BE = 50 + 2 = 52","\\text{Max gain} = \\text{unlimited} - 2"],
+      result:"<b>Max loss is just $4, breakeven $52, upside unlimited.</b> The put guarantees you can sell at $48 no matter how far the stock falls." } ],
+  memory:"Insurance: caps your loss at the strike, costs you the premium.",
+  trap:"Max loss = (cost &minus; strike) + premium; upside stays unlimited (minus the premium paid). Best when you want to hold but fear a near-term drop." }
+
+});
+</script>
 <script>boot();</script>
 </body>
 </html>
