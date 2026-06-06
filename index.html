@@ -5131,6 +5131,200 @@ enh({
   trap:"Both magnify gains AND losses. High leverage boosts good years and deepens bad ones." }
 });
 </script>
+<script>
+/* ====================  WAVE 10: RETIREMENT, ESTATES, ACCOUNTS, SUITABILITY, remaining TAX  ==================== */
+enh({
+"bargain-element":{ memory:"Spread &times; shares = your on-paper discount.",
+  trap:"For an ISO it's AMT income at exercise &mdash; you can owe tax before you ever sell the shares." },
+"accelerated-depreciation":{ memory:"Front-load deductions now; the AMT makes you slow down.",
+  trap:"The MACRS-vs-ADS gap is the AMT adjustment &mdash; a timing difference that nets to zero and becomes a Minimum Tax Credit." },
+"529-plan":{
+  examples:[{ title:"Tax-free education savings", scenario:"You contribute to a 529; it grows and you withdraw for your child's tuition.",
+    result:"Growth and qualified-education withdrawals are <b>tax-free</b>. Non-qualified withdrawals: earnings taxed + 10% penalty. You can front-load 5 years of gifts at once." }],
+  memory:"Tax-free growth for education; counts as a parent asset for aid.",
+  trap:"Low financial-aid impact (parent asset). K-12 tuition capped at $10k/yr; SECURE 2.0 allows a $35k lifetime 529-to-Roth rollover." },
+"step-up-basis":{
+  examples:[{ title:"Wiping out the gain at death", scenario:"You bought stock at $20; it's worth $100 when you die and your heir inherits it.",
+    result:"Their basis <b>steps up to $100</b> &mdash; the $80 of pre-death appreciation escapes capital-gains tax entirely." }],
+  memory:"Heir's basis resets to date-of-death value.",
+  trap:"Community-property states step up BOTH halves at the first spouse's death (vs. half in common-law states)." },
+"qualified-dividend":{
+  examples:[{ title:"Low rate vs ordinary", scenario:"You hold a U.S. stock more than 60 days around the ex-date and receive a dividend.",
+    result:"It's a <b>qualified dividend</b> &mdash; taxed at 0/15/20%, not your higher ordinary rate." }],
+  memory:"Low LTCG rate if held &gt;60 days around the ex-date.",
+  trap:"REITs, MLPs, and money-market funds pay NON-qualified (ordinary-rate) dividends." },
+"kiddie-tax":{
+  examples:[{ title:"No income-shifting loophole", scenario:"A child's custodial account throws off $4,000 of investment income.",
+    result:"Income above ~$2,600 is taxed at the <b>parent's</b> marginal rate &mdash; blunting the benefit of shifting assets to a child." }],
+  memory:"Child's investment income above ~$2,600 is taxed at the parent's rate.",
+  trap:"Applies to children under 18 (or full-time students under 24). It curbs UGMA/UTMA income-shifting." },
+"cost-basis-methods":{
+  examples:[{ title:"Choosing which shares you sold", scenario:"You bought shares at $20, $40, and $60 and now sell some at $55.",
+    result:"With <b>specific identification</b> you sell the $60 lots first (smallest gain). FIFO would sell the cheap $20 lots (biggest gain)." }],
+  memory:"FIFO (default), specific ID, or average cost (funds only).",
+  trap:"Specific ID usually minimizes tax &mdash; but you must designate the lots AT the time of sale." },
+"donor-advised-fund":{
+  examples:[{ title:"Deduct now, give later", scenario:"You donate appreciated stock worth $50,000 (cost basis $10,000) to a DAF.",
+    result:"You deduct the full <b>$50,000 FMV</b> now AND avoid the $40,000 capital gain &mdash; then recommend grants to charities over time." }],
+  memory:"Deduct now, grant to charities later.",
+  trap:"Donating appreciated securities (vs. cash) avoids the capital gain and still gives a full fair-market-value deduction." },
+"drip":{
+  examples:[{ title:"Compounding the dividends", scenario:"Instead of cash, your $200 dividend automatically buys more shares.",
+    result:"That's a <b>DRIP</b> &mdash; it compounds your position. But the $200 is still taxable this year and raises your cost basis." }],
+  memory:"Auto-reinvest dividends into more shares.",
+  trap:"Reinvested dividends are STILL taxable and increase your basis &mdash; track it so you don't double-pay tax later." },
+"hsa":{
+  examples:[{ title:"The triple tax break", scenario:"You contribute to an HSA, it grows, and you withdraw for medical bills.",
+    result:"Deductible going in, tax-free growth, tax-free out for medical &mdash; a unique <b>triple</b> advantage. Requires a high-deductible health plan." }],
+  memory:"Triple tax-free: deductible in, grows, out for medical.",
+  trap:"Needs an HDHP. Unused funds roll over indefinitely and can be invested &mdash; some use it as a stealth retirement account." },
+"marginal-tax-rate":{
+  examples:[{ title:"Two different rates", scenario:"You earn $100,000 and pay $18,000 of tax, with your top bracket at 24%.",
+    result:"Your <b>marginal</b> rate is 24% (the next dollar); your <b>effective</b> rate is 18% (average). Always lower than marginal." }],
+  memory:"Marginal = next dollar; effective = average (always lower).",
+  trap:"Use the MARGINAL rate for decisions like taxable-equivalent yield &mdash; not the effective rate." },
+"tax-credit-deduction":{
+  examples:[{ title:"Credit beats deduction", scenario:"Compare a $1,000 tax credit with a $1,000 deduction in the 24% bracket.",
+    result:"The credit saves <b>$1,000</b>; the deduction saves only $240 (your rate &times; $1,000). Credits are worth far more." }],
+  memory:"Credit cuts tax dollar-for-dollar; deduction cuts taxable income.",
+  trap:"A deduction is worth only your marginal rate; a credit is worth its full face value." },
+"like-kind-exchange":{
+  examples:[{ title:"Deferring real-estate gain", scenario:"You sell a rental property at a big gain and roll the proceeds into another rental.",
+    result:"A <b>1031 exchange</b> defers the capital-gains tax &mdash; you carry your gain into the new property (strict timing rules apply)." }],
+  memory:"Swap investment real estate, defer the gain (Section 1031).",
+  trap:"Post-2017 it covers ONLY real estate (no stocks/personal property). It defers &mdash; doesn't erase &mdash; the gain." },
+"constructive-receipt":{
+  examples:[{ title:"Available means taxable", scenario:"A dividend is credited to your account in December but you leave it there until January.",
+    result:"You're taxed on it in <b>December</b> &mdash; income is taxable once it's available, even if you don't withdraw it." }],
+  memory:"Taxed when available, even if you don't take it.",
+  trap:"You can't defer tax just by leaving money in the account &mdash; constructive receipt taxes it when made available." },
+"401k":{
+  examples:[{ title:"Workplace saving with a match", scenario:"You defer 6% of pay into your 401(k) and your employer matches 3%.",
+    result:"Contributions are pre-tax (or Roth), the match is free money, and limits far exceed IRAs. 403(b) is the nonprofit version; 457(b) is for government." }],
+  memory:"Workplace plan; pre-tax or Roth; often an employer match.",
+  trap:"457(b) plans uniquely have no 10% early-withdrawal penalty on separation from service, regardless of age." },
+"defined-benefit":{
+  examples:[{ title:"Who bears the risk?", scenario:"One employer promises '2% of final pay per year of service'; another just deposits into your 401(k).",
+    result:"The first is a <b>defined benefit</b> (pension &mdash; employer's investment risk, PBGC-insured); the second is <b>defined contribution</b> (your risk)." }],
+  memory:"DB (pension) = set payout, employer's risk; DC = your risk.",
+  trap:"DB plans are PBGC-insured and promise a benefit; DC plans only define the input &mdash; the participant bears investment risk." },
+"rollover":{
+  examples:[{ title:"Moving retirement money", scenario:"You leave a job and want to move your 401(k) to an IRA.",
+    result:"A <b>direct (trustee-to-trustee) transfer</b> is cleanest &mdash; no withholding, no limit. An indirect 60-day rollover risks tax if you miss the window." }],
+  memory:"Direct transfer is cleanest; the 60-day rollover must be timely.",
+  trap:"The 60-day indirect rollover is limited to once per 12 months (IRA-to-IRA) and triggers 20% withholding from a plan." },
+"72t":{
+  examples:[{ title:"Tapping early without penalty", scenario:"At 52 you start a series of substantially equal periodic payments from your IRA.",
+    result:"Under <b>72(t)</b> you avoid the 10% early-withdrawal penalty. Other exceptions: death/disability, first home ($10k), education, big medical bills, birth/adoption ($5k)." }],
+  memory:"Substantially equal periodic payments dodge the 10% early penalty.",
+  trap:"72(t) payments must continue for 5 years or until 59&frac12;, whichever is longer &mdash; breaking the schedule retroactively triggers penalties." },
+"keogh-solo":{
+  examples:[{ title:"Self-employed saving", scenario:"A freelancer with no employees wants to save aggressively for retirement.",
+    result:"A <b>Solo 401(k)</b> lets her contribute as both employee AND employer for a high total. A Keogh (HR-10) is the older qualified-plan option." }],
+  memory:"Plans for the self-employed (Keogh, Solo 401k).",
+  trap:"Solo 401(k) allows both employee deferrals and employer contributions &mdash; only for owner-only businesses." },
+"inherited-ira":{
+  examples:[{ title:"The 10-year clock", scenario:"You inherit your parent's IRA in 2024 (you're not the spouse).",
+    result:"You must empty it within <b>10 years</b> &mdash; the lifetime 'stretch' is gone for most non-spouse heirs. Spouses and certain beneficiaries are exceptions." }],
+  memory:"Most non-spouse heirs: empty the account within 10 years.",
+  trap:"The SECURE Act replaced the lifetime stretch with a 10-year rule for most non-spouse beneficiaries." },
+"revocable-trust":{
+  examples:[{ title:"Avoid probate, keep control", scenario:"You put assets in a living trust you can change anytime.",
+    result:"It <b>avoids probate</b> (private, fast) but the assets stay in your estate &mdash; no estate-tax savings. It becomes irrevocable at your death." }],
+  memory:"Changeable; avoids probate; NO estate-tax savings.",
+  trap:"Because you keep control, the assets are still in your taxable estate. Probate avoidance is the benefit, not tax savings." },
+"irrevocable-trust":{
+  examples:[{ title:"Giving up control to save tax", scenario:"You move assets into a trust you can never change or revoke.",
+    result:"The assets <b>leave your estate</b> (potential estate-tax savings) and may gain creditor protection &mdash; at the cost of giving up control." }],
+  memory:"Can't change it; removes assets from your estate.",
+  trap:"The estate-tax/creditor benefit exists precisely because you surrender control &mdash; that's the trade-off." },
+"testamentary-trust":{
+  examples:[{ title:"A trust from your will", scenario:"Your will directs that assets fund a trust for your minor children at your death.",
+    result:"That's a <b>testamentary trust</b> &mdash; it takes effect at death and, because it's part of the will, goes THROUGH probate." }],
+  memory:"Created by your will; takes effect at death.",
+  trap:"Unlike a living trust, a testamentary trust does NOT avoid probate (it's created by the probated will)." },
+"charitable-trust":{
+  examples:[{ title:"CRT vs CLT", scenario:"You want income for life with the remainder to charity &mdash; or the reverse.",
+    result:"A <b>CRT</b> pays you income, then the remainder goes to charity. A <b>CLT</b> pays the charity first, then the remainder goes to your heirs." }],
+  memory:"CRT pays you then charity; CLT pays charity then heirs.",
+  trap:"CRT = income to donor, remainder to charity; CLT = the opposite. Don't flip them." },
+"probate":{
+  examples:[{ title:"Why people avoid it", scenario:"An estate with only a will goes to court to validate it and distribute assets.",
+    result:"<b>Probate</b> is slow (6-18 months), costly (3-8%), and public &mdash; which is why living trusts, JTWROS, TOD/POD, and beneficiary designations are used to bypass it." }],
+  memory:"Court process to validate a will and distribute assets.",
+  trap:"Anything passing by trust, survivorship, or beneficiary designation skips probate; assets passing by will do not." },
+"power-of-attorney":{
+  examples:[{ title:"Planning for incapacity", scenario:"You want someone to manage your finances if you become incapacitated.",
+    result:"A <b>durable</b> POA stays valid through incapacity (the right tool). A general POA terminates upon incapacity; all POAs end at death." }],
+  memory:"Durable POA survives incapacity; all POAs end at death.",
+  trap:"Only a DURABLE POA continues if you're incapacitated. A 'springing' POA activates upon a triggering event." },
+"per-stirpes-capita":{
+  examples:[{ title:"If a beneficiary dies first", scenario:"You leave assets to three children, but one predeceases you, leaving two grandchildren.",
+    result:"<b>Per stirpes</b>: the deceased child's share goes to their two kids. <b>Per capita</b>: surviving beneficiaries split equally regardless of generation." }],
+  memory:"Per stirpes = to the deceased's kids; per capita = split among survivors.",
+  trap:"Per stirpes follows the family branch (down a line); per capita splits equally across whoever survives." },
+"marital-deduction":{
+  examples:[{ title:"Leaving everything to a spouse", scenario:"You leave your entire $20 million estate to your spouse.",
+    result:"The <b>unlimited marital deduction</b> means zero estate/gift tax on that transfer. Portability lets your spouse also use your unused exemption." }],
+  memory:"Unlimited transfers to a spouse, tax-free.",
+  trap:"The marital deduction defers tax to the second death. Portability (Form 706 election) preserves the first spouse's unused exemption." },
+"will-intestacy":{
+  examples:[{ title:"No will, no say", scenario:"Someone dies without a will.",
+    result:"They die <b>intestate</b> &mdash; state default rules decide who inherits, possibly not as they'd have wished. A will names an executor and guardians but still goes through probate." }],
+  memory:"No will = intestate; the state's default rules decide.",
+  trap:"Dying intestate hands distribution to state law. A will avoids that but does NOT avoid probate." },
+"executor-trustee":{
+  examples:[{ title:"Who does what?", scenario:"An estate has both a will and a trust.",
+    result:"The <b>executor</b> settles the will (an administrator if there's no will); the <b>trustee</b> manages the trust. All are fiduciaries bound by the Prudent Investor standard." }],
+  memory:"Executor settles a will; trustee manages a trust.",
+  trap:"Executor (named in will) vs administrator (court-appointed when no will). Both owe fiduciary duties to beneficiaries." },
+"generation-skipping-tax":{
+  examples:[{ title:"Skipping a generation", scenario:"A wealthy grandparent leaves assets directly to grandchildren to skip a layer of estate tax.",
+    result:"The <b>generation-skipping transfer tax</b> applies &mdash; it stops families from dodging a round of estate tax by skipping their children." }],
+  memory:"Extra tax on transfers that skip a generation.",
+  trap:"It hits transfers to grandchildren (or anyone 37&frac12;+ years younger) and has its own separate exemption." },
+"jtwros":{
+  examples:[{ title:"Survivor takes all", scenario:"A married couple holds a brokerage account as JTWROS; one spouse dies.",
+    result:"The survivor automatically owns the entire account &mdash; it <b>bypasses probate</b> and overrides the will." }],
+  memory:"Survivor takes all; bypasses probate.",
+  trap:"Survivorship overrides whatever the will says. Each joint tenant holds an equal interest." },
+"tenants-in-common":{
+  examples:[{ title:"Shares to your own heirs", scenario:"Two unrelated business partners own property as tenants in common; one dies.",
+    result:"The deceased partner's share passes to <b>their own heirs</b> (through their estate), NOT to the surviving co-owner. Unequal shares are allowed." }],
+  memory:"Each owner's share passes to THEIR heirs.",
+  trap:"No survivorship &mdash; a deceased owner's interest goes through their estate, not to the co-owner. Good for unrelated parties." },
+"tenants-by-entirety":{
+  examples:[{ title:"Married-only protection", scenario:"A married couple in a TBE state holds their home this way; one spouse is personally sued.",
+    result:"The creditor generally can't reach the home &mdash; <b>tenants by the entirety</b> adds creditor protection plus survivorship, but only for married couples (some states)." }],
+  memory:"Married couples; survivorship + creditor protection.",
+  trap:"Available only to married couples in certain states. One spouse's individual creditors can't reach the property." },
+"community-property":{
+  examples:[{ title:"50/50 and a double step-up", scenario:"A married couple in California owns assets acquired during marriage; one spouse dies.",
+    result:"They each owned 50%, and a <b>full step-up in basis applies to BOTH halves</b> at the first death &mdash; a big tax advantage over common-law states." }],
+  memory:"Nine states: marital assets owned 50/50.",
+  trap:"The standout benefit is the FULL double step-up in basis at the first spouse's death." },
+"suitability":{
+  examples:[{ title:"Matching client to product", scenario:"A 75-year-old who needs income and safety is pitched a leveraged tech ETF.",
+    result:"That's <b>unsuitable</b> &mdash; it doesn't fit her objective (income/preservation), horizon, or risk tolerance. The recommendation must fit the client." }],
+  memory:"The recommendation must fit THIS client's profile.",
+  trap:"IAs owe a fiduciary 'best interest' duty; broker-dealers owe Reg BI's best-interest standard. Both rest on the client profile." },
+"investment-objectives":{
+  examples:[{ title:"Climbing the risk ladder", scenario:"Rank capital preservation, current income, growth, and speculation.",
+    result:"Risk rises in that order: <b>preservation &rarr; income &rarr; growth &rarr; speculation</b>. The objective dictates which products are suitable." }],
+  memory:"Preservation &rarr; income &rarr; growth &rarr; speculation (rising risk).",
+  trap:"Match the product to the stated objective &mdash; an aggressive product clashes with a capital-preservation goal." },
+"time-horizon":{
+  examples:[{ title:"How soon is the money needed?", scenario:"A client needs the funds in 18 months for a house down payment.",
+    result:"That short horizon points to <b>money-market or short bonds</b> &mdash; not volatile equities that could be down when she needs the cash." }],
+  memory:"Short horizon &rarr; safe/liquid; long horizon &rarr; growth.",
+  trap:"Short horizons and high liquidity needs rule out volatile or illiquid products, no matter the expected return." },
+"behavioral-finance":{
+  examples:[{ title:"Why investors misbehave", scenario:"A client refuses to sell a losing stock because selling 'makes the loss real.'",
+    result:"That's <b>loss aversion</b> &mdash; losses hurt about twice as much as equivalent gains feel good. Advisers manage biases like this to keep clients on plan." }],
+  memory:"Loss aversion: losses hurt ~2x as much as gains feel good.",
+  trap:"Other biases: anchoring, herding, overconfidence, recency. They cause investors to buy high and sell low." }
+});
+</script>
 <script>boot();</script>
 </body>
 </html>
