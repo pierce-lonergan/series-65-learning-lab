@@ -4371,6 +4371,327 @@ enh({
 
 });
 </script>
+<script>
+/* ====================  WAVE 4: ECONOMICS (conceptual)  ==================== */
+enh({
+"business-cycle":{
+  examples:[{ title:"Reading the phase", scenario:"The economy has been growing for years; unemployment is very low and the Fed is raising rates to cool inflation.",
+    result:"That's the <b>peak</b>. Defensive sectors (utilities, staples, healthcare) and commodities tend to lead here; cyclicals lead coming out of the trough." }],
+  memory:"Expansion &rarr; Peak &rarr; Contraction &rarr; Trough, then repeat.",
+  trap:"Stock prices <b>lead</b> the cycle (a leading indicator); GDP and employment confirm the turn only after it happens." },
+"gdp":{
+  examples:[{ title:"Whose output is it?", scenario:"A Japanese-owned auto plant operates in Kentucky and produces $2B of cars.",
+    result:"That $2B counts in <b>U.S. GDP</b> (made within our borders) but Japanese GNP (made by their company)." }],
+  memory:"Total output WITHIN a country's borders; two down quarters = recession.",
+  trap:"<b>Real</b> GDP strips out inflation; <b>nominal</b> GDP does not. Compare growth using real GDP." },
+"recession":{
+  examples:[{ title:"Is it official?", scenario:"Real GDP falls for two consecutive quarters.",
+    result:"That's the common <b>recession</b> definition. (The NBER actually uses a broader read of jobs, income, and production.)" }],
+  memory:"Two straight quarters of falling real GDP.",
+  trap:"An inverted yield curve has <i>preceded</i> recessions but isn't the definition. Defensive assets and Treasuries hold up best in one." },
+"inflation":{
+  examples:[{ title:"Who gets hurt?", scenario:"Prices rise 5% a year while your bond pays a fixed 4% coupon.",
+    result:"Your real return is <b>negative</b> — fixed-income and cash lose to inflation, while TIPS, equities, and real assets hedge it." }],
+  memory:"Rising prices erode purchasing power and fixed incomes.",
+  trap:"Demand-pull = too much money chasing goods; cost-push = rising input costs. Fixed coupons suffer most." },
+"federal-reserve":{
+  examples:[{ title:"Easing a slowdown", scenario:"Growth is weak, so the Fed buys Treasuries on the open market.",
+    result:"Buying injects reserves &rarr; rates fall &rarr; bond prices rise and stocks generally rise. (Selling does the opposite.)" }],
+  memory:"Fed BUYS bonds = easy money (rates down); SELLS = tight money.",
+  trap:"The Fed runs <b>monetary</b> policy (rates/money supply). Congress runs <b>fiscal</b> policy (spending/taxes). Don't mix them up." },
+"fiscal-policy":{
+  examples:[{ title:"Whose tool is it?", scenario:"Congress passes a tax cut and a new infrastructure spending bill.",
+    result:"That's <b>fiscal</b> policy (government spending and taxes) — separate from the Fed's interest-rate (monetary) tools." }],
+  memory:"Fiscal = spending + taxes (Congress/President).",
+  trap:"Fiscal (spending/taxes) vs monetary (rates/money, the Fed) is a classic exam mix-up. 'Crowding out' is the textbook critique of fiscal policy." },
+"yield-curve":{
+  examples:[{ title:"The warning sign", scenario:"Short-term Treasury yields rise ABOVE long-term yields.",
+    result:"That's an <b>inverted</b> curve — markets expect rate cuts to fight a slowdown. It has preceded every post-WWII U.S. recession." }],
+  memory:"Normal slopes up; inverted (short &gt; long) warns of recession.",
+  trap:"Inversion is the recession signal; a flat curve is usually transitional. Toggle the shapes in the graphic." },
+"leading-indicators":{
+  examples:[{ title:"The tricky unemployment trio", scenario:"Classify three unemployment-related data points.",
+    result:"<b>Initial jobless CLAIMS = leading</b>; the unemployment <b>RATE = coincident</b>; <b>DURATION of unemployment = lagging</b>. Same topic, three timings." }],
+  memory:"Lead the turn: building permits, new orders, stock prices, jobless CLAIMS.",
+  trap:"Initial claims lead; the unemployment rate is coincident; duration is lagging. This exact distinction is heavily tested." },
+"cpi-ppi":{
+  examples:[{ title:"Which moves first?", scenario:"Wholesale input prices (PPI) jump this month.",
+    result:"PPI often <b>leads</b> the CPI consumers later pay — a heads-up on coming consumer inflation." }],
+  memory:"CPI = consumer prices; PPI = wholesale (and it leads CPI).",
+  trap:"PPI is a leading indicator of CPI. Demand-pull inflation = too much demand; cost-push = rising costs." },
+"monetary-aggregates":{
+  examples:[{ title:"M1 or M2?", scenario:"You have $500 cash, $3,000 in checking, and $20,000 in a savings account.",
+    result:"Cash + checking ($3,500) is in <b>M1</b> (spendable now); the savings ($20,000) is in <b>M2</b> (near-cash)." }],
+  memory:"M1 = spendable now; M2 = M1 + near-cash savings.",
+  trap:"Savings deposits and small CDs are in M2, not M1. M1 is only what you can spend immediately." },
+"balance-of-payments":{
+  examples:[{ title:"Financing a trade deficit", scenario:"A country imports far more than it exports.",
+    result:"Its current-account deficit must be financed by <b>capital inflows</b> — foreigners buying its assets (bonds, stocks, real estate)." }],
+  memory:"All money in/out vs the world; current account = trade in goods/services.",
+  trap:"A trade (current-account) deficit is balanced by a capital-account surplus — the money comes back in as investment." },
+"economic-schools":{
+  examples:[{ title:"Who prescribes what?", scenario:"A deep recession hits. What does each school recommend?",
+    result:"<b>Keynesian</b>: government spend (deficit). <b>Monetarist</b>: steady money growth. <b>Supply-side</b>: cut taxes. <b>Classical</b>: leave markets alone to self-correct." }],
+  memory:"Keynes = spend; Friedman = money supply; supply-side = tax cuts; classical = hands-off.",
+  trap:"Keynesians favor active FISCAL policy in downturns; monetarists distrust it and favor steady money-supply growth." },
+"yield-curve-theories":{
+  examples:[{ title:"Why does the curve usually slope up?", scenario:"Long-term bonds normally yield more than short-term ones.",
+    result:"<b>Liquidity preference theory</b>: investors demand a premium to tie up money longer. (Expectations theory: long rates average expected future short rates.)" }],
+  memory:"Expectations, liquidity preference (term premium), market segmentation.",
+  trap:"Liquidity preference theory explains the normal upward slope — the extra reward for longer maturities." },
+"currency-effects":{
+  examples:[{ title:"Strong-dollar winners and losers", scenario:"The U.S. dollar strengthens sharply against other currencies.",
+    result:"<b>Exporters and multinationals lose</b> (U.S. goods pricier abroad, foreign earnings translate to fewer dollars); importers and U.S. travelers win.",
+    chart:{ type:"bars", title:"Effect of a STRONG dollar", data:[{label:"U.S. exporters",value:-1,color:"#ff6b6b"},{label:"U.S. importers",value:1,color:"#46d39a"}] } }],
+  memory:"Strong dollar hurts exporters; weak dollar helps them.",
+  trap:"A STRONG dollar makes U.S. exports more expensive abroad (bad for exporters) but makes imports cheaper." },
+"stagflation":{
+  examples:[{ title:"The policy trap", scenario:"Inflation is high AND unemployment is high with stagnant growth (think 1970s).",
+    result:"That's <b>stagflation</b> — fixing inflation (tightening) worsens unemployment, and easing to fix jobs worsens inflation. No clean tool." }],
+  memory:"Stagnation + inflation together — the policy trap.",
+  trap:"Stagflation breaks the usual playbook. Don't confuse it with deflation (broadly falling prices)." },
+"gnp":{
+  examples:[{ title:"By the people, not the place", scenario:"A U.S. company earns profits at its factory in Mexico.",
+    result:"Those profits count in <b>U.S. GNP</b> (by U.S. residents/firms) but in Mexico's GDP (within Mexico's borders)." }],
+  memory:"GDP = within borders; GNP = by a nation's residents anywhere.",
+  trap:"A foreign-owned plant operating at home counts in your GDP, not your GNP." }
+});
+
+/* ====================  WAVE 4: ANALYSIS (conceptual)  ==================== */
+enh({
+"technical-analysis":{
+  examples:[{ title:"Trading the chart", scenario:"An analyst ignores earnings and buys because the price broke above resistance on heavy volume.",
+    result:"That's <b>technical analysis</b> — decisions from price/volume patterns, assuming trends persist and history rhymes." }],
+  memory:"Charts, trends, patterns — price/volume, not fundamentals.",
+  trap:"Technical analysis uses PAST price/volume; under weak-form EMH it shouldn't beat the market. Contrast with fundamental analysis." },
+"fundamental-analysis":{
+  examples:[{ title:"Top-down vs bottom-up", scenario:"One analyst starts with the economy and sector; another starts with a single company's financials.",
+    result:"Both do <b>fundamental analysis</b> — the first is top-down, the second bottom-up. Both estimate intrinsic value." }],
+  memory:"Value from the business: statements, economy, industry.",
+  trap:"Top-down starts macro; bottom-up starts with the company. Semi-strong EMH says public info is already priced in." },
+"support-resistance":{
+  examples:[{ title:"Floor and ceiling", scenario:"A stock keeps bouncing up off $40 and keeps stalling at $50.",
+    result:"$40 is <b>support</b> (buyers step in); $50 is <b>resistance</b> (sellers step in). Breaking through either signals a new trend." }],
+  memory:"Support = floor (buyers); resistance = ceiling (sellers).",
+  trap:"A decisive break THROUGH support or resistance is read as a trend change, not a bounce." },
+"moving-average":{
+  examples:[{ title:"Crosses", scenario:"A stock's 50-day average rises above its 200-day average.",
+    result:"That's a <b>golden cross</b> — a bullish signal. The reverse (50 below 200) is a bearish <b>death cross</b>." }],
+  memory:"Golden cross (50 above 200) bullish; death cross bearish.",
+  trap:"The 50-day is the short-term trend, the 200-day the long-term. Golden = up, death = down." },
+"rsi":{
+  examples:[{ title:"Momentum extreme", scenario:"A stock's RSI hits 80 after a sharp run-up.",
+    result:"Above 70 is <b>overbought</b> (a possible pullback); below 30 is oversold. RSI runs 0&ndash;100." }],
+  memory:"Above 70 overbought; below 30 oversold.",
+  trap:"Overbought doesn't guarantee a drop — it flags a momentum extreme, not a certainty." },
+"dow-theory":{
+  examples:[{ title:"Needs confirmation", scenario:"The Dow Industrials hit a new high, but the Dow Transports do not.",
+    result:"Under <b>Dow Theory</b> the rally is suspect — a primary trend needs BOTH averages to confirm with new highs (or lows)." }],
+  memory:"Industrials AND Transports must confirm the trend.",
+  trap:"Without confirmation by both averages, Dow Theory treats the move as unconfirmed and unreliable." },
+"emh":{
+  examples:[{ title:"Which form bites which analyst?", scenario:"Consider whether technical or fundamental analysis can win.",
+    result:"<b>Weak form</b> kills technical analysis (past prices priced in). <b>Semi-strong</b> also kills fundamental (all public info priced in). <b>Strong</b> says even insiders can't win." }],
+  memory:"Weak (past prices), Semi-strong (public info), Strong (even insider).",
+  trap:"Semi-strong is the most academically supported — implying passive indexing is rational and active analysis rarely wins net of fees." },
+"balance-sheet":{
+  examples:[{ title:"The identity that must hold", scenario:"A firm has $500k of assets and $300k of liabilities.",
+    result:"Equity must be <b>$200k</b>, because Assets = Liabilities + Equity always balances.",
+    chart:{ type:"stack", unit:"$", title:"Assets = Liabilities + Equity", segments:[{label:"Liabilities",value:300000,color:"#ff9f43"},{label:"Equity",value:200000,color:"#46d39a"}] } }],
+  memory:"Assets = Liabilities + Equity, always — a point-in-time snapshot.",
+  trap:"The balance sheet is a SNAPSHOT (one instant); the income statement covers a PERIOD. Don't confuse the two." },
+"income-statement":{
+  examples:[{ title:"Down to the bottom line", scenario:"Revenue $1M, COGS $600k, operating expenses $250k, interest+tax $50k.",
+    result:"Gross profit $400k &rarr; operating income (EBIT) $150k &rarr; <b>net income $100k</b>. It covers a period, not an instant." }],
+  memory:"Revenue minus costs down to net income — over a period.",
+  trap:"It measures a PERIOD (quarter/year), unlike the balance-sheet snapshot. Gross &rarr; operating (EBIT) &rarr; net income is the ladder." },
+"cash-flow-statement":{
+  examples:[{ title:"Profit isn't cash", scenario:"A company reports a profit but its cash is shrinking fast.",
+    result:"The cash-flow statement (Operating / Investing / Financing) reveals why — e.g., cash tied up in receivables or heavy capital spending." }],
+  memory:"Operating, Investing, Financing — real cash, not accounting profit.",
+  trap:"A profitable company can still run out of cash. This statement reconciles net income to actual cash." },
+"auditor-opinions":{
+  examples:[{ title:"Reading the grade", scenario:"An audit report says the statements 'present fairly, in all material respects.'",
+    result:"That's an <b>unqualified (clean)</b> opinion — the best. 'Qualified' = one exception; 'adverse' = statements are wrong; 'disclaimer' = couldn't form an opinion." }],
+  memory:"Unqualified (clean) is best; adverse is worst.",
+  trap:"Don't be fooled by the word 'qualified' — an UNqualified opinion is the good one (no reservations)." },
+"cash-accrual-accounting":{
+  examples:[{ title:"When is revenue booked?", scenario:"A firm delivers a service in December but gets paid in January.",
+    result:"Under <b>accrual</b> accounting the revenue is booked in December (when earned). Under cash basis it's January (when paid)." }],
+  memory:"Cash = when money moves; accrual = when earned/incurred.",
+  trap:"GAAP requires accrual for most public companies — revenue when earned, expenses when incurred, regardless of cash timing." },
+"chart-patterns":{
+  examples:[{ title:"Reversal vs continuation", scenario:"A stock forms a 'head and shoulders' top after a long uptrend.",
+    result:"That pattern warns of a <b>trend reversal</b> (bearish at a top). Triangles and flags, by contrast, usually signal continuation." }],
+  memory:"Head-and-shoulders = reversal; triangles/flags = continuation.",
+  trap:"A head-and-shoulders TOP is bearish (reversal); the inverse version at a bottom is bullish." },
+"normal-distribution":{
+  examples:[{ title:"From σ to probability", scenario:"Returns average 8% with a standard deviation of 12%.",
+    result:"About <b>95%</b> of outcomes fall within &plusmn;2&sigma; (&minus;16% to +32%), and ~68% within &plusmn;1&sigma;. Click the bands in the graphic." }],
+  memory:"68-95-99.7 within 1, 2, 3 standard deviations.",
+  trap:"Standard deviation captures TOTAL risk. The bell curve assumes symmetry — real returns can have fatter tails." }
+});
+</script>
+<script>
+/* ====================  WAVE 5: MONEY MARKET + FIXED INCOME (conceptual)  ==================== */
+enh({
+"money-market":{
+  examples:[{ title:"Parking cash safely", scenario:"A client needs a place to hold cash for 3 months with minimal risk and easy access.",
+    result:"Money-market instruments fit: T-bills, jumbo CDs, commercial paper, banker's acceptances — all short-term (&le;1yr), liquid, low-risk." }],
+  memory:"Short (&le;1yr), safe, liquid 'cash' instruments.",
+  trap:"Only T-bills are truly risk-free. Commercial paper and BAs carry (small) credit risk; money-market funds can 'break the buck' in stress." },
+"commercial-paper":{
+  examples:[{ title:"Funding payroll", scenario:"A strong corporation needs short-term cash for working capital and issues 90-day paper at a discount.",
+    result:"That's <b>commercial paper</b> — unsecured, sold at a discount, maturing in 270 days or less to stay exempt from registration." }],
+  memory:"Unsecured corporate IOU, &le;270 days, sold at a discount.",
+  trap:"Max 270-day maturity keeps it registration-exempt. Issued by financially strong, highly-rated companies." },
+"bankers-acceptance":{
+  examples:[{ title:"Financing imports", scenario:"An importer needs to pay an overseas supplier; a bank guarantees the time draft.",
+    result:"That guaranteed instrument is a <b>banker's acceptance</b> — used in international trade and as good as the bank's credit." }],
+  memory:"Bank-guaranteed time draft for international trade.",
+  trap:"The bank 'accepts' (guarantees) the obligation, making it a money-market instrument sold at a discount." },
+"repo":{
+  examples:[{ title:"Overnight cash", scenario:"A dealer sells Treasuries today and agrees to buy them back tomorrow at a slightly higher price.",
+    result:"That's a <b>repurchase agreement</b> — really a collateralized overnight loan; the price difference is the interest." }],
+  memory:"Sell now, buy back higher tomorrow = collateralized loan.",
+  trap:"The Fed uses repos/reverse repos to manage short-term rates. A 'reverse repo' is the same trade from the other side." },
+"negotiable-cd":{
+  examples:[{ title:"Jumbo vs offshore", scenario:"A $1,000,000 CD can be traded before maturity; separately, a company holds USD in a London bank.",
+    result:"The first is a <b>negotiable (jumbo) CD</b> ($100k+, tradeable); the second is a <b>Eurodollar</b> deposit." }],
+  memory:"Jumbo ($100k+) CD trades; Eurodollars are offshore USD.",
+  trap:"'Eurodollar' = U.S. dollars deposited OUTSIDE the U.S. — it has nothing to do with the euro currency." },
+"bond":{
+  examples:[{ title:"You are the lender", scenario:"You buy a $1,000 bond paying a 5% coupon for 10 years.",
+    result:"You collect $50/year and get your $1,000 back at maturity. If rates rise, the bond's market price falls (and vice versa)." }],
+  memory:"An IOU: you lend, they pay coupons and return par.",
+  trap:"Bond prices move OPPOSITE to interest rates. The coupon is fixed; it's the price that adjusts." },
+"treasury":{
+  examples:[{ title:"The tax perk", scenario:"You earn $500 of interest on a Treasury note and live in a high-tax state.",
+    result:"It's taxable federally but <b>exempt from state and local tax</b> — a meaningful edge in high-tax states." }],
+  memory:"U.S. gov't debt: safest; state/local tax-exempt.",
+  trap:"Treasury interest is federally taxable but EXEMPT from state/local tax. Bills are sold at a discount; notes/bonds pay coupons." },
+"agency-securities":{
+  examples:[{ title:"Who has the full backing?", scenario:"Compare a Ginnie Mae security with a Fannie Mae security.",
+    result:"<b>Ginnie Mae</b> has the full faith and credit of the U.S.; <b>Fannie/Freddie</b> have only implicit backing. All three are state/local taxable." }],
+  memory:"Ginnie Mae = full faith; Fannie/Freddie = implicit only.",
+  trap:"Only GINNIE MAE carries full U.S. backing. Unlike Treasuries, agency interest IS state/local taxable." },
+"mbs":{
+  examples:[{ title:"Two opposite risks", scenario:"You own a mortgage pass-through. Consider what happens when rates fall, then rise.",
+    result:"Rates fall &rarr; homeowners refinance &rarr; <b>prepayment risk</b> (cash back early). Rates rise &rarr; payoffs slow &rarr; <b>extension risk</b> (stuck longer)." }],
+  memory:"Pooled mortgages; payments pass through monthly.",
+  trap:"Falling rates bring prepayment risk; rising rates bring extension risk. CMOs slice these into tranches." },
+"cmo":{
+  examples:[{ title:"Choosing a tranche", scenario:"A conservative investor wants the most predictable mortgage cash flows.",
+    result:"A <b>PAC</b> tranche fits — most predictable, lowest risk and yield. Companion/support tranches absorb the volatility (highest risk/yield)." }],
+  memory:"MBS sliced into tranches by risk; PAC is the safest.",
+  trap:"PAC = predictable/low-yield; companion (support) = volatile/high-yield. Z-tranche accrues and is paid last." },
+"tips":{
+  examples:[{ title:"The phantom tax", scenario:"Inflation raises your TIPS principal by $300 this year, but you receive no extra cash.",
+    result:"You still owe tax on that $300 'phantom income' — which is why TIPS belong in <b>tax-deferred</b> accounts." }],
+  memory:"Principal grows with inflation; phantom income taxed yearly.",
+  trap:"The annual inflation adjustment is taxed even though you don't receive the cash. Best held in IRAs/401(k)s." },
+"strips":{
+  examples:[{ title:"Buy cheap, grow to par", scenario:"You buy a zero-coupon STRIP for $600 that pays $1,000 at maturity.",
+    result:"No coupons (no reinvestment risk), but you're taxed yearly on the imputed (phantom) interest as it accretes." }],
+  memory:"Zero-coupon Treasuries; bought at discount, grow to par.",
+  trap:"No reinvestment risk, but yearly phantom-income tax. A zero's duration equals its maturity (max rate sensitivity)." },
+"savings-bonds":{
+  examples:[{ title:"EE vs I", scenario:"A saver wants a government bond guaranteed to grow, and another that keeps up with inflation.",
+    result:"<b>Series EE</b> is guaranteed to double in 20 years; <b>Series I</b> adds an inflation adjustment. Both are state/local tax-exempt." }],
+  memory:"EE doubles in 20 years; I adds inflation.",
+  trap:"Federal tax can be deferred to redemption; an education exclusion may apply. Purchases are capped (~$10k/yr each)." },
+"munis":{
+  examples:[{ title:"Tax-free income", scenario:"A high-bracket investor buys a 3.5% in-state municipal bond.",
+    result:"The interest is <b>federally tax-free</b> (and state-free in-state) — worth far more than 3.5% to a high earner. But capital gains on munis are NOT tax-free." }],
+  memory:"State/local debt; interest is federally tax-free.",
+  trap:"Only the INTEREST is tax-free — capital gains on a muni sale are taxable. Compare to taxable bonds via taxable-equivalent yield." },
+"go-revenue-bond":{
+  examples:[{ title:"What backs the bond?", scenario:"One muni is backed by the city's taxing power; another only by toll-road revenue.",
+    result:"The first is a <b>GO bond</b> (safer, lower yield); the second is a <b>revenue bond</b> (depends on one project, higher yield)." }],
+  memory:"GO = taxing power; revenue = a specific project's income.",
+  trap:"GO bonds lean on full taxing power (often need voter approval); revenue bonds rise or fall with one project's income." },
+"pab":{
+  examples:[{ title:"The AMT catch", scenario:"A high earner subject to AMT holds a private-activity municipal bond (e.g., a stadium bond).",
+    result:"Its interest is an <b>AMT preference item</b> — so unlike ordinary munis, it can be taxed under the AMT." }],
+  memory:"Private Activity Bond: a muni whose interest can be AMT-taxed.",
+  trap:"PAB interest is tax-free for regular tax but a preference item for AMT. AMT-exposed investors prefer non-AMT munis." },
+"non-amt-munis":{
+  examples:[{ title:"Guaranteed tax-free", scenario:"An AMT-sensitive investor wants muni income with no surprises.",
+    result:"<b>Non-AMT munis</b> (essential public-purpose bonds) are free of both regular tax and AMT — at a slightly lower yield than PABs." }],
+  memory:"Munis free of BOTH regular tax AND the AMT.",
+  trap:"They yield a touch less than AMT-exposed PABs precisely because their tax-free status is bulletproof." },
+"anticipation-notes":{
+  examples:[{ title:"Bridge financing", scenario:"A city needs cash now but expects tax revenue and a bond sale soon.",
+    result:"It issues short-term notes: <b>TAN</b> (taxes), <b>RAN</b> (revenue), <b>BAN</b> (bond proceeds), <b>TRAN</b> (both), <b>GAN</b> (grants)." }],
+  memory:"Short-term munis repaid from expected revenue.",
+  trap:"Match the letter to the source: TAN=taxes, RAN=revenue, BAN=bond proceeds, GAN=grants, TRAN=tax+revenue." },
+"sinking-fund":{
+  examples:[{ title:"Lowering default risk", scenario:"A bond indenture requires the issuer to retire 10% of the issue each year.",
+    result:"That's a <b>sinking fund</b> — setting aside money to retire bonds on a schedule, reassuring investors and reducing default risk." }],
+  memory:"Issuer sets aside money to retire bonds over time.",
+  trap:"A sinking fund lowers credit risk but can act like a call — bonds may be retired early." },
+"credit-rating":{
+  examples:[{ title:"Investment grade or junk?", scenario:"A bond is rated BBB− by S&P; another is rated BB+.",
+    result:"<b>BBB− is the lowest investment grade</b>; <b>BB+ is the highest junk (high-yield)</b> rating. The line sits right between them." }],
+  memory:"BBB&minus;/Baa3 and up = investment grade; below = junk.",
+  trap:"Memorize the cutoff: BBB&minus;/Baa3 (investment grade) vs BB+/Ba1 (junk). One notch changes everything." },
+"callable-bond":{
+  examples:[{ title:"Called away", scenario:"Rates fall sharply and the issuer redeems your 6% bond at the call price.",
+    result:"Bad for you — you must reinvest at today's lower rates. You're compensated with a higher coupon; evaluate with yield-to-call." }],
+  memory:"Issuer can redeem early — usually when rates fall.",
+  trap:"Calls happen when rates DROP (worst time to reinvest). Callable bonds carry call risk and trade with yield-to-call in mind." },
+"credit-risk":{
+  examples:[{ title:"Diversifiable danger", scenario:"You hold one company's bond and it heads toward bankruptcy.",
+    result:"That's <b>credit (default) risk</b> — specific to the issuer, so it's diversifiable. Near-zero for Treasuries, high for junk." }],
+  memory:"Risk the issuer doesn't pay you back.",
+  trap:"Credit risk is NON-systematic (diversifiable). Spread across issuers and check ratings to manage it." },
+"reinvestment-risk":{
+  examples:[{ title:"Coupons at lower rates", scenario:"Rates fall and your bond's $50 coupons must be reinvested at the new, lower rate.",
+    result:"That's <b>reinvestment risk</b>. A zero-coupon bond avoids it entirely — there are no coupons to reinvest." }],
+  memory:"Coupons reinvested at lower rates when rates fall.",
+  trap:"Reinvestment risk is the mirror image of interest-rate risk. Zeros eliminate it (but maximize price risk)." },
+"interest-rate-risk":{
+  examples:[{ title:"The big bond risk", scenario:"Rates jump 1% and your long-maturity, low-coupon bond drops sharply in price.",
+    result:"That's <b>interest-rate risk</b>, sized by duration — worst for long-maturity, low-coupon bonds. It's systematic (can't diversify it away)." }],
+  memory:"Rising rates push bond prices down; duration sizes it.",
+  trap:"Interest-rate risk is SYSTEMATIC. Shorten duration or use floating-rate notes to reduce it." },
+"convexity":{
+  examples:[{ title:"The curve helps you", scenario:"Rates fall 1%, then rise 1%, on an option-free bond.",
+    result:"With positive <b>convexity</b>, you gain a bit MORE on the drop than you lose on the rise — the price-yield curve bends in your favor." }],
+  memory:"The curve bends in your favor (gain more, lose less).",
+  trap:"Positive convexity is good; callable bonds/MBS can have NEGATIVE convexity at low yields (the call caps gains)." },
+"yield-to-worst":{
+  examples:[{ title:"The cautious number", scenario:"A callable bond has a YTM of 5.2% and a yield-to-call of 4.6%.",
+    result:"<b>Yield-to-worst = 4.6%</b> — the lower of the two. Quote it for callable bonds so investors aren't over-promised." }],
+  memory:"The lowest of YTM and all yields-to-call.",
+  trap:"For callable bonds, always consider yield-to-worst — assume the issuer acts in its own interest, not yours." },
+"international-bonds":{
+  examples:[{ title:"Name that bond", scenario:"A German company issues U.S.-dollar bonds to American investors in the U.S.",
+    result:"That's a <b>Yankee bond</b> (foreign issuer, USD, sold in the U.S.). A Eurobond is issued outside its currency's home country." }],
+  memory:"Eurobond, Yankee, Samurai — cross-border issuance.",
+  trap:"Yankee = foreign issuer selling USD in the U.S. Foreign-currency bonds add CURRENCY risk on top of credit and rate risk." },
+"corporate-bond-types":{
+  examples:[{ title:"Who gets paid first?", scenario:"A company is liquidated; it issued both mortgage bonds and debentures.",
+    result:"<b>Secured</b> mortgage bondholders are paid from collateral first; <b>debenture</b> holders (unsecured) rely on general credit and rank behind." }],
+  memory:"Secured (mortgage/equipment) paid before unsecured (debentures).",
+  trap:"Debentures are UNSECURED — backed only by the issuer's general credit. Equipment trust certificates are secured by transport gear." },
+"bond-strategies":{
+  examples:[{ title:"Pick the structure", scenario:"A retiree wants steady reinvestment and protection from rate swings.",
+    result:"A <b>ladder</b> (evenly staggered maturities) fits — each maturing rung reinvests at the long end, smoothing rate and reinvestment risk." }],
+  memory:"Ladder (even), barbell (short + long), bullet (one date).",
+  trap:"A bullet targets a single future need; a barbell mixes liquidity (short) with yield (long). Use the strategy graphic to see them." },
+"immunization":{
+  examples:[{ title:"Locking in a return", scenario:"A pension owes a big payment in exactly 8 years.",
+    result:"It builds a bond portfolio with an <b>8-year duration</b> — so price risk and reinvestment risk offset and the target return is locked in regardless of rate moves." }],
+  memory:"Match duration to your time horizon to lock in a return.",
+  trap:"Immunization matches DURATION (not maturity) to the horizon. It's how pensions defease future liabilities." },
+"structured-products":{
+  examples:[{ title:"The hidden credit risk", scenario:"A 'principal-protected note' promises your money back plus index upside.",
+    result:"The protection is only as good as the <b>issuer's credit</b> — if the bank fails, the guarantee can vanish (recall Lehman notes)." }],
+  memory:"Debt + embedded derivative; complex, issuer credit risk.",
+  trap:"'Principal-protected' still carries issuer credit risk. Reverse convertibles can repay you in <i>falling</i> stock, not cash." }
+});
+</script>
 <script>boot();</script>
 </body>
 </html>
