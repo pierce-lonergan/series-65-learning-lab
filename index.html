@@ -4170,6 +4170,207 @@ enh({
 
 });
 </script>
+<script>
+/* ====================  ENHANCEMENT WAVE 3: bonds, options, stats, key rules  ==================== */
+enh({
+
+"coupon":{
+  equation:{ latex:"NY = \\frac{C}{Par}", where:[
+    {s:"NY", d:"nominal yield (the coupon rate)"},
+    {s:"C", d:"the annual coupon in dollars"},
+    {s:"Par", d:"par/face value (usually $1,000)"} ]},
+  examples:[
+    { title:"Coupon dollars from the rate", scenario:"A bond has a 5% coupon on $1,000 par.",
+      given:[{s:"NY",d:"5%"},{s:"Par",d:"$1,000"}],
+      steps:["C = 0.05 \\times 1000 = 50 \\text{ per year}"],
+      result:"<b>$50 a year</b>, fixed for the life of the bond regardless of its price." } ],
+  memory:"Coupon = annual interest as a % of par; fixed at issue.",
+  trap:"The coupon never changes &mdash; it's the bond's <b>price</b> that moves so its yield keeps up with the market." },
+
+"bond-price-rate":{
+  examples:[
+    { title:"Why an old bond loses value", scenario:"You own a 4% bond. New bonds are now issued at 6%. Why does yours fall in price?",
+      steps:["\\text{Buyers won't pay full price for 4\\% when they can get 6\\%}","\\text{Your bond's price falls until its yield} \\approx 6\\%"],
+      result:"<b>Rates up &rarr; price down.</b> The price drops just enough to make the old 4% coupon yield a competitive 6%.",
+      chart:{ type:"numberline", unit:"%", min:0, max:8, marks:[{value:4,label:"old coupon",color:"#ffcf5c"},{value:6,label:"new market",color:"#ff6b6b"}] } } ],
+  memory:"Rates up, prices down &mdash; always inverse.",
+  trap:"It's the existing bond's <b>price</b> that adjusts so its yield matches new market rates. Longer maturity and lower coupon = bigger price swing." },
+
+"premium-discount":{
+  examples:[
+    { title:"Which way does it trade?", scenario:"A bond carries a 4% coupon. Compare two markets: rates at 6%, then rates at 2%.",
+      steps:["\\text{Market 6\\% > 4\\% coupon} \\Rightarrow \\text{trades at a DISCOUNT (below par)}","\\text{Market 2\\% < 4\\% coupon} \\Rightarrow \\text{trades at a PREMIUM (above par)}"],
+      result:"Coupon above market &rarr; <b>premium</b>; coupon below market &rarr; <b>discount</b>." } ],
+  memory:"Coupon above market &rarr; premium; below market &rarr; discount.",
+  trap:"A premium bond drifts DOWN to par by maturity (a built-in capital loss); a discount bond rises UP to par (a built-in gain)." },
+
+"ytm":{
+  examples:[
+    { title:"How price shifts YTM", scenario:"Think about whether YTM is above or below the coupon.",
+      steps:["\\text{Discount bond: gain to par} \\Rightarrow YTM > \\text{coupon}","\\text{Premium bond: loss to par} \\Rightarrow YTM < \\text{coupon}"],
+      result:"<b>Discount &rarr; YTM above coupon; premium &rarr; YTM below coupon.</b> YTM blends the coupon income with the gain or loss to par." } ],
+  memory:"YTM = your all-in return if you hold to maturity (coupons + gain/loss to par).",
+  trap:"YTM assumes you reinvest coupons at the YTM and hold to maturity. For callable bonds also check yield to call &mdash; report the <b>yield to worst</b>." },
+
+"working-capital":{
+  equation:{ latex:"WC = CA - CL", where:[
+    {s:"WC", d:"working capital — the short-term cash cushion (a dollar amount)"},
+    {s:"CA", d:"current assets (due to become cash within a year)"},
+    {s:"CL", d:"current liabilities (bills due within a year)"} ]},
+  examples:[
+    { title:"The short-term cushion", scenario:"A company has $200,000 of current assets and $120,000 of current liabilities.",
+      given:[{s:"CA",d:"$200,000"},{s:"CL",d:"$120,000"}],
+      steps:["WC = 200{,}000 - 120{,}000 = 80{,}000"],
+      result:"<b>$80,000 of working capital</b> — a positive buffer to cover the next year's obligations." } ],
+  memory:"Current assets minus current liabilities = short-term cushion.",
+  trap:"Working capital is a dollar amount; the current ratio expresses the same idea as a ratio. Negative working capital is a liquidity warning." },
+
+"dividend-payout":{
+  equation:{ latex:"Payout = \\frac{Div}{NI} \\qquad Retention = 1 - Payout", where:[
+    {s:"Payout", d:"share of earnings paid out as dividends"},
+    {s:"Div", d:"total dividends paid"},
+    {s:"NI", d:"net income (or use dividend-per-share &divide; EPS)"} ]},
+  examples:[
+    { title:"How much is reinvested?", scenario:"A company earns $4.00 per share and pays a $1.00 dividend.",
+      given:[{s:"Div",d:"$1.00"},{s:"EPS",d:"$4.00"}],
+      steps:["Payout = \\frac{1.00}{4.00} = 25\\%","Retention = 1 - 0.25 = 75\\%"],
+      result:"<b>25% paid out, 75% retained</b> for growth — a profile typical of a growth company.",
+      chart:{ type:"stack", unit:"%", title:"Use of each $1 of earnings", segments:[{label:"dividend",value:25,color:"#46d39a"},{label:"reinvested",value:75,color:"#5b9dff"}] } } ],
+  memory:"Payout = dividends &divide; earnings; the rest is reinvested.",
+  trap:"High payout = mature/income stock; low payout = growth. A payout above 100% (paying more than it earns) is unsustainable." },
+
+"total-return":{
+  equation:{ latex:"\\text{Total Return} = \\frac{(P_1 - P_0) + Income}{P_0}", where:[
+    {s:"P_0", d:"beginning price"},
+    {s:"P_1", d:"ending price"},
+    {s:"Income", d:"dividends or interest received"} ]},
+  examples:[
+    { title:"Income rescues a flat price", scenario:"A stock starts and ends the year at $100 but paid $4 in dividends.",
+      given:[{s:"P_0",d:"$100"},{s:"P_1",d:"$100"},{s:"Income",d:"$4"}],
+      steps:["\\text{Total Return} = \\frac{(100-100) + 4}{100} = 4\\%"],
+      result:"<b>4% total return</b> even with zero price change — income counts." } ],
+  memory:"Price change PLUS income &mdash; the complete picture.",
+  trap:"A flat or even falling price can still be a positive total return once income is added. Never judge performance on price alone." },
+
+"accrued-interest":{
+  equation:{ latex:"AI = C \\times \\frac{days}{360}", where:[
+    {s:"AI", d:"accrued interest the buyer pays the seller"},
+    {s:"C", d:"the annual coupon in dollars"},
+    {s:"days", d:"days since the last coupon (30/360 for corp/muni)"} ]},
+  examples:[
+    { title:"Paying the seller for held interest", scenario:"A corporate bond pays $50/year. It has been 90 days (30/360) since the last coupon.",
+      given:[{s:"C",d:"$50"},{s:"days",d:"90"}],
+      steps:["AI = 50 \\times \\frac{90}{360} = 12.50"],
+      result:"The buyer pays the seller <b>$12.50</b> of accrued interest at settlement, on top of the bond's price." } ],
+  memory:"Buyer reimburses the seller for interest earned since the last coupon.",
+  trap:"Corporate and muni bonds use 30/360; <b>Treasuries use actual/actual</b>. Accrued interest is added to the price the buyer pays." },
+
+"straddle":{
+  equation:{ latex:"BE_{up} = K + (P_c + P_p) \\qquad BE_{down} = K - (P_c + P_p)", where:[
+    {s:"K", d:"the shared strike price"},
+    {s:"P_c", d:"the call premium paid"},
+    {s:"P_p", d:"the put premium paid"},
+    {s:"BE", d:"the upper and lower breakeven prices"} ]},
+  examples:[
+    { title:"How big a move do you need?", scenario:"You buy a $50 straddle: the call costs $3 and the put costs $2 (total $5).",
+      given:[{s:"K",d:"$50"},{s:"P_c",d:"$3"},{s:"P_p",d:"$2"}],
+      steps:["BE_{up} = 50 + 5 = 55","BE_{down} = 50 - 5 = 45","\\text{Max loss} = 5 \\text{ (at exactly } \\$50)"],
+      result:"You profit only if the stock moves <b>above $55 or below $45</b>. Between them you lose, up to the full $5 premium at $50.",
+      chart:{ type:"numberline", unit:"$", min:40, max:60, marks:[{value:45,label:"lower BE",color:"#46d39a"},{value:50,label:"max loss",color:"#ff6b6b"},{value:55,label:"upper BE",color:"#46d39a"}] } } ],
+  memory:"Profit outside strike &plusmn; total premium; you need a BIG move either way.",
+  trap:"A long straddle loses if the stock sits still &mdash; max loss is the total premium paid, at the strike. Buy it when you expect volatility but not a direction." },
+
+"intrinsic-time-value":{
+  equation:{ latex:"Premium = Intrinsic + Time", where:[
+    {s:"Premium", d:"the option's total market price"},
+    {s:"Intrinsic", d:"the in-the-money amount (never negative)"},
+    {s:"Time", d:"the extra value for time/uncertainty left before expiry"} ]},
+  examples:[
+    { title:"Splitting an option's price", scenario:"A $50 call trades for $6 while the stock is at $54.",
+      given:[{s:"Premium",d:"$6"},{s:"stock",d:"$54"},{s:"strike",d:"$50"}],
+      steps:["Intrinsic = 54 - 50 = 4","Time = 6 - 4 = 2"],
+      result:"<b>$4 intrinsic + $2 time value = $6 premium.</b> The $2 of time value will decay to zero by expiration.",
+      chart:{ type:"stack", unit:"$", title:"The $6 premium", segments:[{label:"intrinsic",value:4,color:"#46d39a"},{label:"time value",value:2,color:"#8b7cff"}] } } ],
+  memory:"Premium = intrinsic (in-the-money amount) + time value.",
+  trap:"Intrinsic value is never negative &mdash; an out-of-the-money option is all time value. Time value decays (theta) to zero at expiration." },
+
+"capital-market-line":{
+  equation:{ latex:"E(R_p) = R_f + \\frac{E(R_m) - R_f}{\\sigma_m}\\,\\sigma_p", where:[
+    {s:"E(R_p)", d:"expected return of the efficient portfolio"},
+    {s:"R_f", d:"the risk-free rate"},
+    {s:"E(R_m), \\sigma_m", d:"the market portfolio's return and total risk"},
+    {s:"\\sigma_p", d:"the portfolio's total risk (standard deviation)"} ]},
+  examples:[
+    { title:"Reward for total risk", scenario:"Risk-free 3%, market 10% with σ of 15%. Your efficient portfolio has σ of 10%.",
+      given:[{s:"R_f",d:"3%"},{s:"E(R_m)",d:"10%"},{s:"\\sigma_m",d:"15%"},{s:"\\sigma_p",d:"10%"}],
+      steps:["E(R_p) = 3\\% + \\frac{10\\% - 3\\%}{15\\%}\\times 10\\%","E(R_p) = 3\\% + 4.67\\% = 7.67\\%"],
+      result:"<b>Expected return ≈ 7.67%.</b> The CML rewards each unit of TOTAL risk." } ],
+  memory:"CML: reward per unit of TOTAL risk &mdash; efficient portfolios only.",
+  trap:"CML uses total risk (&sigma;) and applies only to <b>efficient</b> portfolios; the SML (CAPM) uses beta and applies to <b>any</b> security." },
+
+"r-squared":{
+  examples:[
+    { title:"When is beta trustworthy?", scenario:"Two funds: one has R² of 95, another has R² of 50 versus the same index.",
+      steps:["R^2 = 95 \\Rightarrow 95\\% \\text{ of moves explained by the index (beta meaningful)}","R^2 = 50 \\Rightarrow \\text{half is other factors (beta unreliable)}"],
+      result:"Only the <b>R² = 95</b> fund's beta is dependable. Below ~70, beta tells you little." } ],
+  memory:"R² (0&ndash;100): how much of the fund's move the benchmark explains.",
+  trap:"Beta is only meaningful when R² is high (above ~70). An index fund has R² near 100; a quirky fund may have a low R² making its beta misleading." },
+
+"air":{
+  examples:[
+    { title:"How the variable-annuity check changes", scenario:"A variable annuity has an Assumed Interest Rate (AIR) of 4%. See what happens to the next payment.",
+      steps:["\\text{account returns } 6\\% > 4\\% \\Rightarrow \\text{payment rises}","\\text{returns } 4\\% = 4\\% \\Rightarrow \\text{payment unchanged}","\\text{returns } 2\\% < 4\\% \\Rightarrow \\text{payment falls}"],
+      result:"<b>Beat the AIR &rarr; bigger check; match it &rarr; same; below it &rarr; smaller.</b>" } ],
+  memory:"Beat the AIR &rarr; payment up; match &rarr; flat; below &rarr; down.",
+  trap:"AIR is a benchmark, NOT a guaranteed return. It only sets the first variable payment; each later payment floats versus the AIR." },
+
+"accredited-investor":{
+  examples:[
+    { title:"Do you qualify?", scenario:"Test the wealth and income paths (either one works).",
+      given:[{s:"NW",d:"&gt; $1,000,000 excluding home"},{s:"Income",d:"&gt; $200k single / $300k joint, 2 years"}],
+      steps:["\\text{Net worth } > \\$1{,}000{,}000 \\text{ (excluding primary home)}","\\text{OR income } > \\$200{,}000 \\text{ (single) for 2 years}"],
+      result:"Meeting <b>either</b> test qualifies you. Holding a Series 7, 65, or 82 now also qualifies you regardless of wealth.",
+      chart:{ type:"bars", unit:"$", title:"Accredited thresholds", data:[{label:"Net worth (excl. home)",value:1000000,color:"#46d39a"},{label:"Income (single)",value:200000,color:"#5b9dff"},{label:"Income (joint)",value:300000,color:"#8b7cff"}] } } ],
+  memory:"$1M net worth (excluding home) OR $200k/$300k income.",
+  trap:"Net worth <b>excludes your primary residence</b>. And since 2020, holding a Series 65/7/82 qualifies you by knowledge, not money." },
+
+"sipc":{
+  examples:[
+    { title:"A failed-brokerage payout", scenario:"Your single account holds $300,000 cash and $300,000 in securities ($600,000 total) when the broker fails.",
+      given:[{s:"Total limit",d:"$500,000"},{s:"Cash sublimit",d:"$250,000"}],
+      steps:["\\text{Cash covered: } \\min(300{,}000, 250{,}000) = 250{,}000","\\text{Plus securities up to the } \\$500{,}000 \\text{ total}"],
+      result:"SIPC covers <b>$500,000</b> (with cash capped at $250,000); the extra $100,000 is beyond the limit. Separate capacities (IRA, joint) each get their own $500,000.",
+      chart:{ type:"bars", unit:"$", title:"SIPC coverage", data:[{label:"Total per customer",value:500000,color:"#46d39a"},{label:"Cash sublimit",value:250000,color:"#ffcf5c"}] } } ],
+  memory:"$500k total per separate customer; $250k cash sublimit.",
+  trap:"SIPC covers a BROKER's failure, NOT market losses. Each separate capacity (individual, joint, IRA) gets its own $500k &mdash; it is not the FDIC." },
+
+"reg-d":{
+  examples:[
+    { title:"506(b) vs 506(c)", scenario:"Two private-placement paths under Rule 506.",
+      steps:["506(b): \\text{unlimited accredited} + \\le 35 \\text{ sophisticated; NO advertising}","506(c): \\text{accredited ONLY; advertising allowed with verification}"],
+      result:"<b>506(b)</b> = quiet deal, a few non-accredited allowed. <b>506(c)</b> = you may advertise, but everyone must be verified accredited." } ],
+  memory:"506(b): no advertising, 35 non-accredited OK. 506(c): advertise, accredited only.",
+  trap:"General solicitation (advertising) is permitted ONLY under 506(c) &mdash; and then you must <b>verify</b> each investor's accredited status, not just take their word." },
+
+"wash-sale":{
+  examples:[
+    { title:"A disallowed loss", scenario:"You sell a stock for a $5,000 loss, then rebuy the same stock 12 days later.",
+      given:[{s:"loss",d:"$5,000"},{s:"rebuy",d:"12 days later"}],
+      steps:["12 \\text{ days is inside the 30-day window}","\\text{loss disallowed; } \\$5{,}000 \\text{ added to the new shares' basis}"],
+      result:"You can't deduct the $5,000 now; it shifts into the replacement shares' cost basis (you recover it when you finally sell those)." } ],
+  memory:"No loss if you rebuy within 30 days BEFORE or after (61-day window).",
+  trap:"It crosses accounts &mdash; selling in taxable and rebuying in your IRA still triggers it, and there the basis adjustment is lost <b>forever</b>." },
+
+"exchange-1035":{
+  examples:[
+    { title:"Which swaps are tax-free?", scenario:"Check the allowed directions for a 1035 exchange.",
+      steps:["\\text{Life} \\to \\text{Life, Life} \\to \\text{Annuity, Annuity} \\to \\text{Annuity: ALLOWED}","\\text{Annuity} \\to \\text{Life: NOT allowed}"],
+      result:"It's a one-way street: you can go toward an annuity, but <b>never from an annuity back to life insurance</b>." } ],
+  memory:"Swap like-for-like tax-free; annuity &rarr; life is the blocked direction.",
+  trap:"Annuity &rarr; life insurance is NOT a valid 1035 exchange. Cost basis carries over, and surrender charges on the old contract may still apply." }
+
+});
+</script>
 <script>boot();</script>
 </body>
 </html>
